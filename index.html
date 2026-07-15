@@ -289,6 +289,7 @@
     gap:var(--gap);
   }
   .project-card{ cursor:default; }
+  .project-frame-link{ display:block; cursor:pointer; }
   .project-frame{
     aspect-ratio:4/3;
     transition:border-color 0.25s ease;
@@ -782,14 +783,32 @@
       </div>
 
       <div class="project-card">
-        <div class="hud-frame project-frame has-image">
+        <div class="hud-frame project-frame">
           <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-          <img src="assets/TheCocoon_thumb.jpg" alt="Emerging From The Cocoon storyboard still" class="project-img">
+          <div class="hud-center">
+            <div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+            <span class="mono">Image pending</span>
+          </div>
         </div>
         <div class="project-info">
           <div>
-            <h3>Emerging From The Cocoon</h3>
-            <p class="project-role">Personal Project — storyboard sequence</p>
+            <h3>Beyond</h3>
+            <p class="project-role">Animated Short — whole animation</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <a href="untitled-short-film.html" class="project-frame-link">
+          <div class="hud-frame project-frame has-image">
+            <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
+            <img src="assets/YP_untitled_thumb.png" alt="Untitled Short Film storyboard still" class="project-img">
+          </div>
+        </a>
+        <div class="project-info">
+          <div>
+            <h3>Untitled</h3>
+            <p class="project-role">Animated Short — storyboard sequence</p>
           </div>
         </div>
       </div>
@@ -797,11 +816,11 @@
       <div class="project-card">
         <div class="hud-frame project-frame has-image">
           <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-          <img src="assets/YP_untitled_thumb.png" alt="Untitled Short Film storyboard still" class="project-img">
+          <img src="assets/TheCocoon_thumb.jpg" alt="Emerging From The Cocoon storyboard still" class="project-img">
         </div>
         <div class="project-info">
           <div>
-            <h3>Untitled — Short Film</h3>
+            <h3>Emerging From The Cocoon</h3>
             <p class="project-role">Personal Project — storyboard sequence</p>
           </div>
         </div>
