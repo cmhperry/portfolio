@@ -87,6 +87,24 @@
     letter-spacing:0.02em;
   }
   .logo span{ color:var(--accent); }
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:1.8rem;
+  }
+  .home-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    transition:color 0.2s ease, border-color 0.2s ease;
+    flex:0 0 auto;
+  }
+  .home-btn:hover{ color:var(--accent); border-color:var(--accent); }
+  .home-btn svg{ width:15px; height:15px; }
   .nav-links{
     display:flex;
     gap:2rem;
@@ -608,17 +626,23 @@
 <header>
   <nav>
     <a href="#top" class="logo">PERRY CHU<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="#work">CG</a></li>
-      <li><a href="#storyboard">Storyboard</a></li>
-      <li><a href="#career">Career</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <a href="index.html#top" class="home-btn" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#work">CG</a></li>
+        <li><a href="#storyboard">Storyboard</a></li>
+        <li><a href="#career">Career</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 </header>
 
 <main class="wrap" id="top">
+
 
   <!-- HERO -->
   <section class="hero" style="border-top:none;">
@@ -783,12 +807,9 @@
       </div>
 
       <div class="project-card">
-        <div class="hud-frame project-frame">
+        <div class="hud-frame project-frame has-image">
           <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-          <div class="hud-center">
-            <div class="placeholder-icon"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-            <span class="mono">Image pending</span>
-          </div>
+          <img src="assets/beyond_thumb.jpg" alt="Beyond title still" class="project-img">
         </div>
         <div class="project-info">
           <div>

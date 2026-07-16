@@ -47,22 +47,72 @@
   }
 
   header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,15,18,0.85);
+    backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
-    padding:1.4rem var(--gap);
   }
-  .back-link{
-    display:inline-flex;
+  nav{
+    display:flex;
     align-items:center;
-    gap:0.5rem;
+    justify-content:space-between;
+    padding:1.1rem var(--gap);
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    letter-spacing:0.02em;
+  }
+  .logo span{ color:var(--accent); }
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:1.8rem;
+  }
+  .home-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    transition:color 0.2s ease, border-color 0.2s ease;
+    flex:0 0 auto;
+  }
+  .home-btn:hover{ color:var(--accent); border-color:var(--accent); }
+  .home-btn svg{ width:15px; height:15px; }
+  .nav-links{
+    display:flex;
+    gap:2rem;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.75rem;
-    letter-spacing:0.06em;
+    font-size:0.72rem;
     text-transform:uppercase;
+    letter-spacing:0.1em;
     color:var(--ink-soft);
     transition:color 0.2s ease;
+    position:relative;
+    padding-bottom:2px;
   }
-  .back-link:hover{ color:var(--accent); }
-  .back-link svg{ width:14px; height:14px; }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:-3px;
+    width:0; height:1px;
+    background:var(--accent);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  @media (max-width:480px){
+    .nav-links{ display:none; }
+  }
 
   .project-hero{
     padding:clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3rem);
@@ -126,12 +176,21 @@
 <body>
 
 <header>
-  <div class="wrap" style="padding:0;">
-    <a href="index.html#storyboard" class="back-link">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
-      Back to Portfolio
-    </a>
-  </div>
+  <nav>
+    <a href="index.html#top" class="logo">PERRY CHU<span>.</span></a>
+    <div class="nav-right">
+      <a href="index.html#top" class="home-btn" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">CG</a></li>
+        <li><a href="index.html#storyboard">Storyboard</a></li>
+        <li><a href="index.html#career">Career</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 </header>
 
 <main class="wrap">
