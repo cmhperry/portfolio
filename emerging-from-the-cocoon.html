@@ -167,7 +167,22 @@
   }
   @media (max-width:600px){
     .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
+    .deck-embed{ width:auto; margin:0 calc(-1 * var(--gap)); border-left:0; border-right:0; border-radius:0; }
   }
+  .open-external{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    margin-top:1rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    transition:color 0.2s ease;
+  }
+  .open-external:hover{ color:var(--accent); }
+  .open-external svg{ width:12px; height:12px; }
 
   footer{
     border-top:1px solid var(--line);
@@ -216,6 +231,10 @@
         title="Emerging From The Cocoon"
         allowfullscreen="true"></iframe>
     </div>
+    <a href="https://docs.google.com/presentation/d/1ID78xwJeCga45hQ5If2x1yepa21DFTTw/edit?usp=sharing" target="_blank" rel="noopener" class="open-external">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
+      Open in Google Slides for best mobile viewing
+    </a>
   </section>
 
 </main>
