@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonic Racing: Crossworlds | Perry Chu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --bg:#0E0F12;
+    --bg-alt:#1A1B1F;
+    --ink:#F2F1EC;
+    --ink-soft:#9A9CA3;
+    --line:#2A2C31;
+    --line-strong:#44474E;
+    --accent:#5B84FF;
+    --accent-soft:rgba(91,132,255,0.12);
+    --gap:clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2{ font-family:'Space Grotesk', sans-serif; margin:0; letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--accent-soft); color:var(--ink); }
+
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .wrap{
+    max-width:1000px;
+    margin:0 auto;
+    padding:0 var(--gap);
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(14,15,18,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:1.1rem var(--gap);
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:1rem;
+    letter-spacing:0.02em;
+  }
+  .logo span{ color:var(--accent); }
+  .nav-right{
+    display:flex;
+    align-items:center;
+    gap:1.8rem;
+  }
+  .home-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    color:var(--ink-soft);
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    transition:color 0.2s ease, border-color 0.2s ease;
+    flex:0 0 auto;
+  }
+  .home-btn:hover{ color:var(--accent); border-color:var(--accent); }
+  .home-btn svg{ width:15px; height:15px; }
+  .nav-links{
+    display:flex;
+    gap:2rem;
+    list-style:none;
+    margin:0; padding:0;
+  }
+  .nav-links a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    transition:color 0.2s ease;
+    position:relative;
+    padding-bottom:2px;
+  }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; bottom:-3px;
+    width:0; height:1px;
+    background:var(--accent);
+    transition:width 0.25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+  @media (max-width:480px){
+    .nav-links{ display:none; }
+  }
+
+  .project-hero{
+    padding:clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3rem);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+    margin-bottom:1rem;
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px; height:6px;
+    background:var(--accent);
+    display:inline-block;
+    border-radius:1px;
+  }
+  .project-hero h1{
+    font-size:clamp(2.2rem, 5vw, 3.4rem);
+    margin-bottom:0.8rem;
+  }
+  .project-hero p{
+    color:var(--ink-soft);
+    font-size:1.02rem;
+    max-width:56ch;
+  }
+
+  .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); display:flex; flex-direction:column; gap:1.6rem; }
+  .deck-embed{
+    position:relative;
+    width:100%;
+    padding-bottom:56.25%;
+    height:0;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    background:var(--bg-alt);
+    border-radius:6px;
+    box-sizing:border-box;
+  }
+  .deck-embed iframe{
+    position:absolute;
+    top:12px; left:12px; right:12px; bottom:12px;
+    width:calc(100% - 24px);
+    height:calc(100% - 24px);
+    border:0;
+    border-radius:4px;
+  }
+  @media (max-width:600px){
+    .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
+  }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:1.6rem var(--gap);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    text-align:center;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html#top" class="logo">PERRY CHU<span>.</span></a>
+    <div class="nav-right">
+      <a href="index.html#top" class="home-btn" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#work">CG</a></li>
+        <li><a href="index.html#storyboard">Storyboard</a></li>
+        <li><a href="index.html#career">Career</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="project-hero">
+    <p class="eyebrow">Animated Short</p>
+    <h1>Sonic Racing: Crossworlds</h1>
+    <p>Set dressing, environment texturing &amp; modeling, lighting, rendering.</p>
+  </section>
+
+  <section class="deck-section">
+    <div class="deck-embed">
+      <iframe src="https://www.youtube.com/embed/5ocBa8jTXUA"
+        title="Sonic Racing: Crossworlds"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen="true"></iframe>
+    </div>
+    <div class="deck-embed">
+      <iframe src="https://www.youtube.com/embed/lvY-XvCXIww"
+        title="Sonic Racing: Crossworlds"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Perry Chu
+</footer>
+
+</body>
+</html>
