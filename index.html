@@ -222,9 +222,10 @@
     object-fit:cover;
     z-index:1;
     opacity:0;
+    pointer-events:none;
     transition:opacity 1.1s ease;
   }
-  .hero-img.is-active{ opacity:1; }
+  .hero-img.is-active{ opacity:1; pointer-events:auto; }
   .hero-overlay{
     content:"";
     position:absolute; inset:0;
@@ -658,7 +659,9 @@
       <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
       <span class="hud-label bl" id="heroSlideSub">影之刃零 Phantom Blade Zero — Game Cinematics</span>
       <span class="hud-label br" id="heroSlideCount">01 / 02</span>
-      <img src="assets/phantom_blade_zero_hero.jpg" alt="Phantom Blade Zero key art" class="hero-img is-active" data-sub="影之刃零 Phantom Blade Zero — Game Cinematics" draggable="false">
+      <a href="phantom-blade-zero.html" class="hero-slide-link">
+        <img src="assets/phantom_blade_zero_hero.jpg" alt="Phantom Blade Zero key art" class="hero-img is-active" data-sub="影之刃零 Phantom Blade Zero — Game Cinematics" draggable="false">
+      </a>
       <img src="assets/another_world_hero.jpg" alt="Another World key art" class="hero-img" data-sub="世外 Another World — Animated Feature" draggable="false">
       <img src="assets/sonic_crossworlds_hero.png" alt="Sonic Racing: Crossworlds key art" class="hero-img" data-sub="索尼克賽車 交叉世界 Sonic Crossworlds — Animated Short" draggable="false">
       <img src="assets/sherlock_film_hero.jpg" alt="Sherlock Holmes And The Great Escape key art" class="hero-img" data-sub="大偵探福爾摩斯：逃獄大追捕 Sherlock Holmes and the Great Escape — Animated Feature" draggable="false">
@@ -704,10 +707,12 @@
     <div class="work-grid">
 
       <div class="project-card">
-        <div class="hud-frame project-frame has-image">
-          <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-          <img src="assets/phantom_blade_zero_thumb.jpg" alt="Phantom Blade Zero character still" class="project-img">
-        </div>
+        <a href="phantom-blade-zero.html" class="project-frame-link">
+          <div class="hud-frame project-frame has-image">
+            <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
+            <img src="assets/phantom_blade_zero_thumb.jpg" alt="Phantom Blade Zero character still" class="project-img">
+          </div>
+        </a>
         <div class="project-info">
           <div>
             <h3>Phantom Blade Zero</h3>
