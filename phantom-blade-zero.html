@@ -148,6 +148,14 @@
   .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
   .gallery-section{
     padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .gallery-section-inner{
+    max-width:1600px;
+    margin:0 auto;
+    padding:0 var(--gap);
     display:flex;
     flex-direction:column;
     gap:1.6rem;
@@ -238,8 +246,10 @@
   </section>
 
   <section class="gallery-section">
-    <div class="gallery-frame">
-      <img src="assets/whiteman_blueman_001.png" alt="Phantom Blade Zero character render — clay and textured comparison">
+    <div class="gallery-section-inner">
+      <div class="gallery-frame">
+        <img src="assets/whiteman_blueman_001.png" alt="Phantom Blade Zero character render — clay and textured comparison">
+      </div>
     </div>
   </section>
 
