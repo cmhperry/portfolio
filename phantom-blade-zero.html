@@ -146,6 +146,24 @@
   }
 
   .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
+  .gallery-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+  }
+  .gallery-frame{
+    border:1px solid var(--line-strong);
+    background:var(--bg-alt);
+    padding:12px;
+    border-radius:6px;
+  }
+  .gallery-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:4px;
+  }
   .deck-embed{
     position:relative;
     width:100%;
@@ -216,6 +234,15 @@
         title="Phantom Blade Zero"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-frame">
+      <img src="assets/blueman_001.png" alt="Phantom Blade Zero character render — textured">
+    </div>
+    <div class="gallery-frame">
+      <img src="assets/whiteman_001.png" alt="Phantom Blade Zero character render — clay">
     </div>
   </section>
 
