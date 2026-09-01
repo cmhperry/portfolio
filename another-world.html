@@ -146,6 +146,88 @@
   }
 
   .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
+
+  /* ---------- PASS VIEWER ---------- */
+  .pass-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .pass-viewer{
+    position:relative;
+    width:100%;
+    height:92vh;
+    margin:0 auto;
+    background:#000;
+    border-top:1px solid var(--line-strong);
+    border-bottom:1px solid var(--line-strong);
+    overflow:hidden;
+  }
+  @media (max-width:700px){
+    .pass-viewer{ height:70vh; }
+  }
+  .pass-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.6s ease;
+  }
+  .pass-img.is-active{ opacity:1; pointer-events:auto; }
+  .pass-label{
+    position:absolute;
+    top:14px; left:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink);
+    z-index:2;
+  }
+  .pass-count{
+    position:absolute;
+    top:14px; right:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    z-index:2;
+  }
+  .pass-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid rgba(242,241,236,0.25);
+    background:rgba(255,255,255,0.08);
+    color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .pass-nav:hover{ background:rgba(255,255,255,0.18); border-color:var(--accent); }
+  .pass-nav svg{ width:14px; height:14px; }
+  .pass-nav.prev{ left:12px; }
+  .pass-nav.next{ right:12px; }
+  .pass-dots{
+    display:flex;
+    justify-content:center;
+    gap:0.5rem;
+    margin-top:1rem;
+  }
+  .pass-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--line-strong);
+    cursor:pointer;
+    transition:background 0.2s ease;
+  }
+  .pass-dot.is-active{ background:var(--accent); }
+
   .deck-embed{
     position:relative;
     width:100%;
@@ -219,11 +301,78 @@
     </div>
   </section>
 
+  <section class="pass-section">
+    <div class="pass-viewer" id="passViewer">
+      <span class="pass-label" id="passLabel">Base</span>
+      <span class="pass-count" id="passCount">01 / 05</span>
+      <img src="assets/another_world_pass_001_base.jpg" alt="Base pass" class="pass-img is-active" data-label="Base">
+      <img src="assets/another_world_pass_002_decal.jpg" alt="Decal pass" class="pass-img" data-label="Decal">
+      <img src="assets/another_world_pass_003_line.jpg" alt="Line pass" class="pass-img" data-label="Line">
+      <img src="assets/another_world_pass_004_cloth.jpg" alt="Cloth pass" class="pass-img" data-label="Cloth">
+      <img src="assets/another_world_pass_005_volumetric.jpg" alt="Volumetric pass" class="pass-img" data-label="Volumetric">
+      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous pass">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pass-nav next" id="passNext" aria-label="Next pass">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="pass-dots" id="passDots"></div>
+  </section>
+
 </main>
 
 <footer>
   © 2026 Perry Chu
 </footer>
+
+<script>
+  // Texture pass viewer — click arrows, dots, or swipe to cycle through render passes.
+  (function(){
+    var stage = document.getElementById('passViewer');
+    if(!stage) return;
+    var slides = Array.prototype.slice.call(stage.querySelectorAll('.pass-img'));
+    var label = document.getElementById('passLabel');
+    var count = document.getElementById('passCount');
+    var prevBtn = document.getElementById('passPrev');
+    var nextBtn = document.getElementById('passNext');
+    var dotsWrap = document.getElementById('passDots');
+    var total = slides.length;
+    var current = 0;
+
+    slides.forEach(function(s, idx){
+      var dot = document.createElement('span');
+      dot.className = 'pass-dot' + (idx === 0 ? ' is-active' : '');
+      dot.addEventListener('click', function(){ show(idx); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll('.pass-dot'));
+
+    function show(i){
+      current = (i + total) % total;
+      slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
+      dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+      label.textContent = slides[current].dataset.label;
+      count.textContent = String(current+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    }
+
+    function next(){ show(current + 1); }
+    function prev(){ show(current - 1); }
+
+    if(nextBtn) nextBtn.addEventListener('click', next);
+    if(prevBtn) prevBtn.addEventListener('click', prev);
+
+    var touchStartX = null;
+    stage.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive:true });
+    stage.addEventListener('touchend', function(e){
+      if(touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if(dx > 40) prev();
+      else if(dx < -40) next();
+      touchStartX = null;
+    }, { passive:true });
+  })();
+</script>
 
 </body>
 </html>
