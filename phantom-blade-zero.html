@@ -163,10 +163,9 @@
     border-top:1px solid var(--line-strong);
     border-bottom:1px solid var(--line-strong);
     overflow:hidden;
-    cursor:grab;
+    cursor:ew-resize;
     user-select:none;
   }
-  .pass-viewer.is-dragging{ cursor:grabbing; }
   @media (max-width:700px){
     .pass-viewer{ height:70vh; }
   }
@@ -452,30 +451,14 @@
       touchStartX = null;
     }, { passive:true });
 
-    // Mouse drag — click and drag left/right to cycle through passes.
-    var mouseStartX = null;
-    var isDragging = false;
-    stage.addEventListener('mousedown', function(e){
-      isDragging = true;
-      mouseStartX = e.clientX;
-      stage.classList.add('is-dragging');
-      e.preventDefault();
+    // Hover follow — moving the mouse across the viewer scrubs through passes live.
+    stage.addEventListener('mousemove', function(e){
+      var rect = stage.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      relX = Math.min(Math.max(relX, 0), 0.999);
+      var idx = Math.floor(relX * total);
+      if(idx !== current) show(idx);
     });
-    window.addEventListener('mousemove', function(e){
-      if(!isDragging) return;
-      e.preventDefault();
-    });
-    window.addEventListener('mouseup', function(e){
-      if(!isDragging) return;
-      isDragging = false;
-      stage.classList.remove('is-dragging');
-      if(mouseStartX === null) return;
-      var dx = e.clientX - mouseStartX;
-      if(dx > 40) prev();
-      else if(dx < -40) next();
-      mouseStartX = null;
-    });
-    stage.addEventListener('dragstart', function(e){ e.preventDefault(); });
   })();
 </script>
 
