@@ -159,16 +159,14 @@
   }
   .deck-embed iframe{
     position:absolute;
-    top:12px; left:12px; right:12px; bottom:12px;
+    top:12px; left:12px; right:12px;
     width:calc(100% - 24px);
-    height:calc(100% - 24px);
+    height:calc(100% - 24px + 15%);
     border:0;
     border-radius:4px;
-    transform:scale(1.1);
-    transform-origin:top center;
   }
   @media (max-width:600px){
-    .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
+    .deck-embed iframe{ top:8px; left:8px; right:8px; width:calc(100% - 16px); height:calc(100% - 16px + 15%); }
     .deck-embed{ width:auto; margin:0 calc(-1 * var(--gap)); border-left:0; border-right:0; border-radius:0; }
   }
   .open-external{
