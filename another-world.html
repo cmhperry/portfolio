@@ -325,6 +325,41 @@
     <div class="pass-dots" id="passDots"></div>
   </section>
 
+  <section class="pass-section">
+    <p class="eyebrow" style="padding:0 var(--gap); margin-bottom:0.8rem;">Lighting Demo</p>
+    <div class="pass-viewer" id="lightingViewer">
+      <span class="pass-label" id="lightingLabel">Frame 01</span>
+      <span class="pass-count" id="lightingCount">01 / 20</span>
+      <img src="assets/another_world_lighting_demo_000.jpg" alt="Lighting demo frame 01" class="pass-img is-active" data-label="Frame 01">
+      <img src="assets/another_world_lighting_demo_001.jpg" alt="Lighting demo frame 02" class="pass-img" data-label="Frame 02">
+      <img src="assets/another_world_lighting_demo_002.jpg" alt="Lighting demo frame 03" class="pass-img" data-label="Frame 03">
+      <img src="assets/another_world_lighting_demo_003.jpg" alt="Lighting demo frame 04" class="pass-img" data-label="Frame 04">
+      <img src="assets/another_world_lighting_demo_004.jpg" alt="Lighting demo frame 05" class="pass-img" data-label="Frame 05">
+      <img src="assets/another_world_lighting_demo_005.jpg" alt="Lighting demo frame 06" class="pass-img" data-label="Frame 06">
+      <img src="assets/another_world_lighting_demo_006.jpg" alt="Lighting demo frame 07" class="pass-img" data-label="Frame 07">
+      <img src="assets/another_world_lighting_demo_007.jpg" alt="Lighting demo frame 08" class="pass-img" data-label="Frame 08">
+      <img src="assets/another_world_lighting_demo_008.jpg" alt="Lighting demo frame 09" class="pass-img" data-label="Frame 09">
+      <img src="assets/another_world_lighting_demo_009.jpg" alt="Lighting demo frame 10" class="pass-img" data-label="Frame 10">
+      <img src="assets/another_world_lighting_demo_010.jpg" alt="Lighting demo frame 11" class="pass-img" data-label="Frame 11">
+      <img src="assets/another_world_lighting_demo_011.jpg" alt="Lighting demo frame 12" class="pass-img" data-label="Frame 12">
+      <img src="assets/another_world_lighting_demo_012.jpg" alt="Lighting demo frame 13" class="pass-img" data-label="Frame 13">
+      <img src="assets/another_world_lighting_demo_013.jpg" alt="Lighting demo frame 14" class="pass-img" data-label="Frame 14">
+      <img src="assets/another_world_lighting_demo_014.jpg" alt="Lighting demo frame 15" class="pass-img" data-label="Frame 15">
+      <img src="assets/another_world_lighting_demo_015.jpg" alt="Lighting demo frame 16" class="pass-img" data-label="Frame 16">
+      <img src="assets/another_world_lighting_demo_016.jpg" alt="Lighting demo frame 17" class="pass-img" data-label="Frame 17">
+      <img src="assets/another_world_lighting_demo_017.jpg" alt="Lighting demo frame 18" class="pass-img" data-label="Frame 18">
+      <img src="assets/another_world_lighting_demo_018.jpg" alt="Lighting demo frame 19" class="pass-img" data-label="Frame 19">
+      <img src="assets/another_world_lighting_demo_019.jpg" alt="Lighting demo frame 20" class="pass-img" data-label="Frame 20">
+      <button type="button" class="pass-nav prev" id="lightingPrev" aria-label="Previous frame">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pass-nav next" id="lightingNext" aria-label="Next frame">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="pass-dots" id="lightingDots"></div>
+  </section>
+
 </main>
 
 <footer>
@@ -332,16 +367,16 @@
 </footer>
 
 <script>
-  // Texture pass viewer — click arrows, dots, or swipe to cycle through render passes.
-  (function(){
-    var stage = document.getElementById('passViewer');
+  // Reusable pass/frame viewer — click arrows, dots, swipe, or hover to cycle through images.
+  function initPassViewer(ids){
+    var stage = document.getElementById(ids.stage);
     if(!stage) return;
     var slides = Array.prototype.slice.call(stage.querySelectorAll('.pass-img'));
-    var label = document.getElementById('passLabel');
-    var count = document.getElementById('passCount');
-    var prevBtn = document.getElementById('passPrev');
-    var nextBtn = document.getElementById('passNext');
-    var dotsWrap = document.getElementById('passDots');
+    var label = document.getElementById(ids.label);
+    var count = document.getElementById(ids.count);
+    var prevBtn = document.getElementById(ids.prev);
+    var nextBtn = document.getElementById(ids.next);
+    var dotsWrap = document.getElementById(ids.dots);
     var total = slides.length;
     var current = 0;
 
@@ -377,7 +412,7 @@
       touchStartX = null;
     }, { passive:true });
 
-    // Hover follow — moving the mouse across the viewer scrubs through passes live.
+    // Hover follow — moving the mouse across the viewer scrubs through images live.
     stage.addEventListener('mousemove', function(e){
       var rect = stage.getBoundingClientRect();
       var relX = (e.clientX - rect.left) / rect.width;
@@ -385,7 +420,10 @@
       var idx = Math.floor(relX * total);
       if(idx !== current) show(idx);
     });
-  })();
+  }
+
+  initPassViewer({ stage:'passViewer', label:'passLabel', count:'passCount', prev:'passPrev', next:'passNext', dots:'passDots' });
+  initPassViewer({ stage:'lightingViewer', label:'lightingLabel', count:'lightingCount', prev:'lightingPrev', next:'lightingNext', dots:'lightingDots' });
 </script>
 
 </body>
