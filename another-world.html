@@ -165,6 +165,7 @@
     overflow:hidden;
     cursor:ew-resize;
     user-select:none;
+    touch-action:pan-y;
   }
   @media (max-width:700px){
     .pass-viewer{ height:70vh; }
@@ -443,6 +444,7 @@
       else if(dx < -40) next();
       touchStartX = null;
     }, { passive:true });
+    stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
 
     // Hover follow — moving the mouse across the viewer scrubs through images live.
     stage.addEventListener('mousemove', function(e){
