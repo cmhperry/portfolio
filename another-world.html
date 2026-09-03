@@ -184,11 +184,16 @@
     position:absolute;
     top:14px; left:16px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.68rem;
+    font-size:0.78rem;
+    font-weight:500;
     letter-spacing:0.08em;
     text-transform:uppercase;
     color:var(--ink);
-    z-index:2;
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
   }
   .pass-count{
     position:absolute;
@@ -197,7 +202,11 @@
     font-size:0.68rem;
     letter-spacing:0.08em;
     color:var(--ink-soft);
-    z-index:2;
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
   }
   .pass-nav{
     position:absolute;
@@ -333,14 +342,12 @@
 
   <section class="pass-section">
     <div class="pass-viewer" id="passViewer">
-      <span class="pass-label" id="passLabel">Base</span>
-      <span class="pass-count" id="passCount">01 / 06</span>
-      <img src="assets/another_world_pass_003_base.jpg" alt="Base pass" class="pass-img is-active" data-label="Base">
-      <img src="assets/another_world_pass_004_decals.jpg" alt="Decals pass" class="pass-img" data-label="Decals">
-      <img src="assets/another_world_pass_005_lines.jpg" alt="Lines pass" class="pass-img" data-label="Lines">
-      <img src="assets/another_world_pass_006_cloth.jpg" alt="Cloth pass" class="pass-img" data-label="Cloth">
-      <img src="assets/another_world_pass_007_volumetric.jpg" alt="Volumetric pass" class="pass-img" data-label="Volumetric">
-      <img src="assets/another_world_pass_008_fogcards_lightcards.jpg" alt="Fog cards and light cards adjustment pass" class="pass-img" data-label="Fog / Light Cards">
+      <span class="pass-label" id="passLabel">Base Pass</span>
+      <span class="pass-count" id="passCount">01 / 04</span>
+      <img src="assets/another_world_pass_001_base.jpg" alt="Base pass" class="pass-img is-active" data-label="Base Pass">
+      <img src="assets/another_world_pass_002_decals_lines_cloth.jpg" alt="Decals, lines, and cloth pass" class="pass-img" data-label="Decals, Lines &amp; Cloth">
+      <img src="assets/another_world_pass_003_volumetric.jpg" alt="Volumetric pass" class="pass-img" data-label="Volumetric Lighting">
+      <img src="assets/another_world_pass_004_fogcards_lightcards.jpg" alt="Fog cards and light cards adjustment pass" class="pass-img" data-label="Fog &amp; Light Cards">
       <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous pass">
         <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
