@@ -146,6 +146,33 @@
   }
 
   .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
+
+  .gallery-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .gallery-section-inner{
+    margin:0 auto;
+    padding:0 var(--gap);
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+  }
+  .gallery-frame{
+    border:1px solid var(--line-strong);
+    background:var(--bg-alt);
+    padding:12px;
+    border-radius:6px;
+  }
+  .gallery-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:4px;
+  }
+
   .deck-embed{
     position:relative;
     width:100%;
@@ -216,6 +243,26 @@
         title="Sonic x Shadows: Generation Dark Beginnings"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-section-inner">
+      <div class="gallery-frame">
+        <img src="assets/sonic_dark_dream_001.png" alt="Sonic x Shadows: Generation Dark Beginnings — dream sequence corridor render">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/sonic_dark_eggbase_001.png" alt="Sonic x Shadows: Generation Dark Beginnings — Eggman base exterior render">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/sonic_dark_broken_eggbase_001.png" alt="Sonic x Shadows: Generation Dark Beginnings — broken Eggman base render">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/sonic_dark_lab_001.png" alt="Sonic x Shadows: Generation Dark Beginnings — lab interior render">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/sonic_dark_observatory_001.png" alt="Sonic x Shadows: Generation Dark Beginnings — observatory render">
+      </div>
     </div>
   </section>
 
