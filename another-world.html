@@ -177,8 +177,9 @@
     opacity:0;
     pointer-events:none;
     transition:opacity 0.6s ease;
+    z-index:1;
   }
-  .pass-img.is-active{ opacity:1; pointer-events:auto; }
+  .pass-img.is-active{ opacity:1; pointer-events:auto; z-index:2; }
   .pass-label{
     position:absolute;
     top:14px; left:16px;
@@ -422,8 +423,21 @@
     var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll('.pass-dot'));
 
     function show(i){
-      current = (i + total) % total;
-      slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
+      var newIdx = (i + total) % total;
+      if(newIdx === current){ return; }
+      var prevIdx = current;
+      current = newIdx;
+
+      // Layer the incoming slide on top and fade it in; the outgoing slide
+      // stays fully opaque underneath so the black stage background never shows through.
+      slides[current].classList.add('is-active');
+
+      window.setTimeout(function(){
+        if(prevIdx !== current){
+          slides[prevIdx].classList.remove('is-active');
+        }
+      }, 650);
+
       dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
       label.textContent = slides[current].dataset.label;
       count.textContent = String(current+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
