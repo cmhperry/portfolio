@@ -169,6 +169,102 @@
     .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
   }
 
+  /* ---------- PASS VIEWER ---------- */
+  .pass-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .pass-viewer{
+    position:relative;
+    width:100%;
+    height:92vh;
+    margin:0 auto;
+    background:#000;
+    border-top:1px solid var(--line-strong);
+    border-bottom:1px solid var(--line-strong);
+    overflow:hidden;
+    cursor:ew-resize;
+    user-select:none;
+    touch-action:pan-y;
+  }
+  @media (max-width:700px){
+    .pass-viewer{ height:70vh; }
+  }
+  .pass-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.6s ease;
+    z-index:1;
+  }
+  .pass-img.is-active{ opacity:1; pointer-events:auto; z-index:2; }
+  .pass-label{
+    position:absolute;
+    top:14px; left:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink);
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
+  }
+  .pass-count{
+    position:absolute;
+    top:14px; right:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
+  }
+  .pass-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid rgba(242,241,236,0.25);
+    background:rgba(255,255,255,0.08);
+    color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .pass-nav:hover{ background:rgba(255,255,255,0.18); border-color:var(--accent); }
+  .pass-nav svg{ width:14px; height:14px; }
+  .pass-nav.prev{ left:12px; }
+  .pass-nav.next{ right:12px; }
+  .pass-dots{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:0.5rem;
+    margin-top:1rem;
+    padding:0 var(--gap);
+  }
+  .pass-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:var(--line-strong);
+    cursor:pointer;
+    transition:background 0.2s ease;
+  }
+  .pass-dot.is-active{ background:var(--accent); }
+
   footer{
     border-top:1px solid var(--line);
     padding:1.6rem var(--gap);
@@ -225,11 +321,127 @@
     </div>
   </section>
 
+  <section class="pass-section">
+    <div class="pass-viewer" id="passViewer">
+      <span class="pass-label" id="passLabel">Frame 01</span>
+      <span class="pass-count" id="passCount">01 / 29</span>
+      <img src="assets/sonic_terra_sc03sh0200_001.jpg" alt="Sonic Racing: Crossworlds — frame 01" class="pass-img is-active" data-label="Frame 01">
+      <img src="assets/sonic_terra_sc03sh0200_002.jpg" alt="Sonic Racing: Crossworlds — frame 02" class="pass-img" data-label="Frame 02">
+      <img src="assets/sonic_terra_sc03sh0200_003.jpg" alt="Sonic Racing: Crossworlds — frame 03" class="pass-img" data-label="Frame 03">
+      <img src="assets/sonic_terra_sc03sh0200_004.jpg" alt="Sonic Racing: Crossworlds — frame 04" class="pass-img" data-label="Frame 04">
+      <img src="assets/sonic_terra_sc03sh0200_005.jpg" alt="Sonic Racing: Crossworlds — frame 05" class="pass-img" data-label="Frame 05">
+      <img src="assets/sonic_terra_sc03sh0200_006.jpg" alt="Sonic Racing: Crossworlds — frame 06" class="pass-img" data-label="Frame 06">
+      <img src="assets/sonic_terra_sc03sh0200_007.jpg" alt="Sonic Racing: Crossworlds — frame 07" class="pass-img" data-label="Frame 07">
+      <img src="assets/sonic_terra_sc03sh0200_008.jpg" alt="Sonic Racing: Crossworlds — frame 08" class="pass-img" data-label="Frame 08">
+      <img src="assets/sonic_terra_sc03sh0200_009.jpg" alt="Sonic Racing: Crossworlds — frame 09" class="pass-img" data-label="Frame 09">
+      <img src="assets/sonic_terra_sc03sh0200_010.jpg" alt="Sonic Racing: Crossworlds — frame 10" class="pass-img" data-label="Frame 10">
+      <img src="assets/sonic_terra_sc03sh0200_011.jpg" alt="Sonic Racing: Crossworlds — frame 11" class="pass-img" data-label="Frame 11">
+      <img src="assets/sonic_terra_sc03sh0200_012.jpg" alt="Sonic Racing: Crossworlds — frame 12" class="pass-img" data-label="Frame 12">
+      <img src="assets/sonic_terra_sc03sh0200_013.jpg" alt="Sonic Racing: Crossworlds — frame 13" class="pass-img" data-label="Frame 13">
+      <img src="assets/sonic_terra_sc03sh0200_014.jpg" alt="Sonic Racing: Crossworlds — frame 14" class="pass-img" data-label="Frame 14">
+      <img src="assets/sonic_terra_sc03sh0200_015.jpg" alt="Sonic Racing: Crossworlds — frame 15" class="pass-img" data-label="Frame 15">
+      <img src="assets/sonic_terra_sc03sh0200_016.jpg" alt="Sonic Racing: Crossworlds — frame 16" class="pass-img" data-label="Frame 16">
+      <img src="assets/sonic_terra_sc03sh0200_017.jpg" alt="Sonic Racing: Crossworlds — frame 17" class="pass-img" data-label="Frame 17">
+      <img src="assets/sonic_terra_sc03sh0200_018.jpg" alt="Sonic Racing: Crossworlds — frame 18" class="pass-img" data-label="Frame 18">
+      <img src="assets/sonic_terra_sc03sh0200_019.jpg" alt="Sonic Racing: Crossworlds — frame 19" class="pass-img" data-label="Frame 19">
+      <img src="assets/sonic_terra_sc03sh0200_020.jpg" alt="Sonic Racing: Crossworlds — frame 20" class="pass-img" data-label="Frame 20">
+      <img src="assets/sonic_terra_sc03sh0200_021.jpg" alt="Sonic Racing: Crossworlds — frame 21" class="pass-img" data-label="Frame 21">
+      <img src="assets/sonic_terra_sc03sh0200_022.jpg" alt="Sonic Racing: Crossworlds — frame 22" class="pass-img" data-label="Frame 22">
+      <img src="assets/sonic_terra_sc03sh0200_023.jpg" alt="Sonic Racing: Crossworlds — frame 23" class="pass-img" data-label="Frame 23">
+      <img src="assets/sonic_terra_sc03sh0200_024.jpg" alt="Sonic Racing: Crossworlds — frame 24" class="pass-img" data-label="Frame 24">
+      <img src="assets/sonic_terra_sc03sh0200_025.jpg" alt="Sonic Racing: Crossworlds — frame 25" class="pass-img" data-label="Frame 25">
+      <img src="assets/sonic_terra_sc03sh0200_026.jpg" alt="Sonic Racing: Crossworlds — frame 26" class="pass-img" data-label="Frame 26">
+      <img src="assets/sonic_terra_sc03sh0200_027.jpg" alt="Sonic Racing: Crossworlds — frame 27" class="pass-img" data-label="Frame 27">
+      <img src="assets/sonic_terra_sc03sh0200_028.jpg" alt="Sonic Racing: Crossworlds — frame 28" class="pass-img" data-label="Frame 28">
+      <img src="assets/sonic_terra_sc03sh0200_029.jpg" alt="Sonic Racing: Crossworlds — frame 29" class="pass-img" data-label="Frame 29">
+      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous frame">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pass-nav next" id="passNext" aria-label="Next frame">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="pass-dots" id="passDots"></div>
+  </section>
+
 </main>
 
 <footer>
   © 2026 Perry Chu
 </footer>
+
+<script>
+  // Reusable pass/frame viewer — click arrows, dots, swipe, or hover to cycle through images.
+  function initPassViewer(ids){
+    var stage = document.getElementById(ids.stage);
+    if(!stage) return;
+    var slides = Array.prototype.slice.call(stage.querySelectorAll('.pass-img'));
+    var label = document.getElementById(ids.label);
+    var count = document.getElementById(ids.count);
+    var prevBtn = document.getElementById(ids.prev);
+    var nextBtn = document.getElementById(ids.next);
+    var dotsWrap = document.getElementById(ids.dots);
+    var total = slides.length;
+    var current = 0;
+
+    slides.forEach(function(s, idx){
+      var dot = document.createElement('span');
+      dot.className = 'pass-dot' + (idx === 0 ? ' is-active' : '');
+      dot.addEventListener('click', function(){ show(idx); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll('.pass-dot'));
+
+    function show(i){
+      var newIdx = (i + total) % total;
+      if(newIdx === current){ return; }
+      var prevIdx = current;
+      current = newIdx;
+
+      // Layer the incoming slide on top and fade it in; the outgoing slide
+      // stays fully opaque underneath so the black stage background never shows through.
+      slides[current].classList.add('is-active');
+
+      window.setTimeout(function(){
+        if(prevIdx !== current){
+          slides[prevIdx].classList.remove('is-active');
+        }
+      }, 650);
+
+      dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+      label.textContent = slides[current].dataset.label;
+      count.textContent = String(current+1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    }
+
+    function next(){ show(current + 1); }
+    function prev(){ show(current - 1); }
+
+    if(nextBtn) nextBtn.addEventListener('click', next);
+    if(prevBtn) prevBtn.addEventListener('click', prev);
+
+    var touchStartX = null;
+    stage.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive:true });
+    stage.addEventListener('touchend', function(e){
+      if(touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if(dx > 40) prev();
+      else if(dx < -40) next();
+      touchStartX = null;
+    }, { passive:true });
+    stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
+
+    // Hover follow — moving the mouse across the viewer scrubs through images live.
+    stage.addEventListener('mousemove', function(e){
+      var rect = stage.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      relX = Math.min(Math.max(relX, 0), 0.999);
+      var idx = Math.floor(relX * total);
+      if(idx !== current) show(idx);
+    });
+  }
+
+  initPassViewer({ stage:'passViewer', label:'passLabel', count:'passCount', prev:'passPrev', next:'passNext', dots:'passDots' });
+</script>
 
 </body>
 </html>
