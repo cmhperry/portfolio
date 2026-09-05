@@ -418,7 +418,8 @@
       <img src="assets/untitled_storyboard_147.png" alt="Untitled storyboard — slide 147" class="pass-img" data-index="147">
       <img src="assets/untitled_storyboard_148.png" alt="Untitled storyboard — slide 148" class="pass-img" data-index="148">
       <img src="assets/untitled_storyboard_149.png" alt="Untitled storyboard — slide 149" class="pass-img" data-index="149">
-      <img src="assets/untitled_storyboard_150.png" alt="Untitled storyboard — slide 150" class="pass-img" data-index="150">      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous slide">
+      <img src="assets/untitled_storyboard_150.png" alt="Untitled storyboard — slide 150" class="pass-img" data-index="150">
+      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous slide">
         <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <button type="button" class="pass-nav next" id="passNext" aria-label="Next slide">
@@ -491,13 +492,21 @@
     stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
 
     // Hover follow — moving the mouse across the viewer scrubs through the deck live.
-    stage.addEventListener('mousemove', function(e){
-      var rect = stage.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width;
-      relX = Math.min(Math.max(relX, 0), 0.999);
-      var idx = Math.floor(relX * total);
-      if(idx !== current) show(idx);
-    });
+    // Only enabled on devices with a real hover-capable pointer (mice/trackpads).
+    // Touchscreens fire a synthetic mousemove right after every tap/swipe, and with
+    // 150 slides mapped across the viewer's width, that synthetic event would jump
+    // to an arbitrary slide and override the actual tap or swipe — so it's skipped
+    // entirely on touch devices.
+    var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if(supportsHover){
+      stage.addEventListener('mousemove', function(e){
+        var rect = stage.getBoundingClientRect();
+        var relX = (e.clientX - rect.left) / rect.width;
+        relX = Math.min(Math.max(relX, 0), 0.999);
+        var idx = Math.floor(relX * total);
+        if(idx !== current) show(idx);
+      });
+    }
 
     // Click/drag the progress bar to jump to any point in the deck.
     function seekFromEvent(e){
@@ -507,10 +516,12 @@
       relX = Math.min(Math.max(relX, 0), 0.999);
       show(Math.floor(relX * total));
     }
-    var isSeeking = false;
-    progress.addEventListener('mousedown', function(e){ isSeeking = true; seekFromEvent(e); });
-    window.addEventListener('mousemove', function(e){ if(isSeeking) seekFromEvent(e); });
-    window.addEventListener('mouseup', function(){ isSeeking = false; });
+    if(supportsHover){
+      var isSeeking = false;
+      progress.addEventListener('mousedown', function(e){ isSeeking = true; seekFromEvent(e); });
+      window.addEventListener('mousemove', function(e){ if(isSeeking) seekFromEvent(e); });
+      window.addEventListener('mouseup', function(){ isSeeking = false; });
+    }
     progress.addEventListener('touchstart', function(e){ seekFromEvent(e); }, { passive:true });
     progress.addEventListener('touchmove', function(e){ seekFromEvent(e); }, { passive:true });
   })();
