@@ -145,44 +145,86 @@
     max-width:56ch;
   }
 
-  .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
-  .deck-embed{
+  /* ---------- SLIDE VIEWER ---------- */
+  .pass-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:100vw;
+    margin-left:calc(50% - 50vw);
+    margin-right:calc(50% - 50vw);
+  }
+  .pass-viewer{
     position:relative;
     width:100%;
-    padding-bottom:59.27%;
-    height:0;
+    height:70vh;
+    margin:0 auto;
+    background:#000;
+    border-top:1px solid var(--line-strong);
+    border-bottom:1px solid var(--line-strong);
     overflow:hidden;
-    border:1px solid var(--line-strong);
-    background:var(--bg-alt);
-    border-radius:6px;
-    box-sizing:border-box;
+    cursor:ew-resize;
+    user-select:none;
+    touch-action:pan-y;
   }
-  .deck-embed iframe{
+  @media (max-width:700px){
+    .pass-viewer{ height:42vh; }
+  }
+  .pass-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.5s ease;
+    z-index:1;
+  }
+  .pass-img.is-active{ opacity:1; pointer-events:auto; z-index:2; }
+  .pass-count{
     position:absolute;
-    top:12px; left:12px; right:12px;
-    width:calc(100% - 24px);
-    height:calc(100% - 24px + 15%);
-    border:0;
-    border-radius:4px;
-  }
-  @media (max-width:600px){
-    .deck-embed iframe{ top:8px; left:8px; right:8px; width:calc(100% - 16px); height:calc(100% - 16px + 15%); }
-    .deck-embed{ width:auto; margin:0 calc(-1 * var(--gap)); border-left:0; border-right:0; border-radius:0; }
-  }
-  .open-external{
-    display:inline-flex;
-    align-items:center;
-    gap:0.5rem;
-    margin-top:1rem;
+    top:14px; right:16px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.7rem;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    transition:color 0.2s ease;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:var(--ink);
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
   }
-  .open-external:hover{ color:var(--accent); }
-  .open-external svg{ width:12px; height:12px; }
+  .pass-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid rgba(242,241,236,0.25);
+    background:rgba(255,255,255,0.08);
+    color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .pass-nav:hover{ background:rgba(255,255,255,0.18); border-color:var(--accent); }
+  .pass-nav svg{ width:14px; height:14px; }
+  .pass-nav.prev{ left:12px; }
+  .pass-nav.next{ right:12px; }
+  .pass-progress{
+    position:relative;
+    height:4px;
+    margin:1rem var(--gap) 0;
+    background:var(--line-strong);
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .pass-progress-fill{
+    position:absolute;
+    top:0; left:0; bottom:0;
+    width:0.7%;
+    background:var(--accent);
+    border-radius:2px;
+    transition:width 0.3s ease;
+  }
 
   footer{
     border-top:1px solid var(--line);
@@ -225,16 +267,168 @@
     <p>Animated Short — storyboard sequence.</p>
   </section>
 
-  <section class="deck-section">
-    <div class="deck-embed">
-      <iframe src="https://docs.google.com/presentation/d/145GX0oq_u2fpwHZViHgHQivpxLlz2xNw/embed?start=false&amp;loop=false&amp;delayms=3000"
-        title="Untitled — Storyboard Sequence"
-        allowfullscreen="true"></iframe>
+  <section class="pass-section">
+    <div class="pass-viewer" id="passViewer">
+      <span class="pass-count" id="passCount">001 / 150</span>
+      <img src="assets/untitled_storyboard_001.png" data-src="assets/untitled_storyboard_001.png" alt="Untitled storyboard — slide 1" class="pass-img is-active" data-index="1">
+      <img data-src="assets/untitled_storyboard_002.png" alt="Untitled storyboard — slide 2" class="pass-img" data-index="2">
+      <img data-src="assets/untitled_storyboard_003.png" alt="Untitled storyboard — slide 3" class="pass-img" data-index="3">
+      <img data-src="assets/untitled_storyboard_004.png" alt="Untitled storyboard — slide 4" class="pass-img" data-index="4">
+      <img data-src="assets/untitled_storyboard_005.png" alt="Untitled storyboard — slide 5" class="pass-img" data-index="5">
+      <img data-src="assets/untitled_storyboard_006.png" alt="Untitled storyboard — slide 6" class="pass-img" data-index="6">
+      <img data-src="assets/untitled_storyboard_007.png" alt="Untitled storyboard — slide 7" class="pass-img" data-index="7">
+      <img data-src="assets/untitled_storyboard_008.png" alt="Untitled storyboard — slide 8" class="pass-img" data-index="8">
+      <img data-src="assets/untitled_storyboard_009.png" alt="Untitled storyboard — slide 9" class="pass-img" data-index="9">
+      <img data-src="assets/untitled_storyboard_010.png" alt="Untitled storyboard — slide 10" class="pass-img" data-index="10">
+      <img data-src="assets/untitled_storyboard_011.png" alt="Untitled storyboard — slide 11" class="pass-img" data-index="11">
+      <img data-src="assets/untitled_storyboard_012.png" alt="Untitled storyboard — slide 12" class="pass-img" data-index="12">
+      <img data-src="assets/untitled_storyboard_013.png" alt="Untitled storyboard — slide 13" class="pass-img" data-index="13">
+      <img data-src="assets/untitled_storyboard_014.png" alt="Untitled storyboard — slide 14" class="pass-img" data-index="14">
+      <img data-src="assets/untitled_storyboard_015.png" alt="Untitled storyboard — slide 15" class="pass-img" data-index="15">
+      <img data-src="assets/untitled_storyboard_016.png" alt="Untitled storyboard — slide 16" class="pass-img" data-index="16">
+      <img data-src="assets/untitled_storyboard_017.png" alt="Untitled storyboard — slide 17" class="pass-img" data-index="17">
+      <img data-src="assets/untitled_storyboard_018.png" alt="Untitled storyboard — slide 18" class="pass-img" data-index="18">
+      <img data-src="assets/untitled_storyboard_019.png" alt="Untitled storyboard — slide 19" class="pass-img" data-index="19">
+      <img data-src="assets/untitled_storyboard_020.png" alt="Untitled storyboard — slide 20" class="pass-img" data-index="20">
+      <img data-src="assets/untitled_storyboard_021.png" alt="Untitled storyboard — slide 21" class="pass-img" data-index="21">
+      <img data-src="assets/untitled_storyboard_022.png" alt="Untitled storyboard — slide 22" class="pass-img" data-index="22">
+      <img data-src="assets/untitled_storyboard_023.png" alt="Untitled storyboard — slide 23" class="pass-img" data-index="23">
+      <img data-src="assets/untitled_storyboard_024.png" alt="Untitled storyboard — slide 24" class="pass-img" data-index="24">
+      <img data-src="assets/untitled_storyboard_025.png" alt="Untitled storyboard — slide 25" class="pass-img" data-index="25">
+      <img data-src="assets/untitled_storyboard_026.png" alt="Untitled storyboard — slide 26" class="pass-img" data-index="26">
+      <img data-src="assets/untitled_storyboard_027.png" alt="Untitled storyboard — slide 27" class="pass-img" data-index="27">
+      <img data-src="assets/untitled_storyboard_028.png" alt="Untitled storyboard — slide 28" class="pass-img" data-index="28">
+      <img data-src="assets/untitled_storyboard_029.png" alt="Untitled storyboard — slide 29" class="pass-img" data-index="29">
+      <img data-src="assets/untitled_storyboard_030.png" alt="Untitled storyboard — slide 30" class="pass-img" data-index="30">
+      <img data-src="assets/untitled_storyboard_031.png" alt="Untitled storyboard — slide 31" class="pass-img" data-index="31">
+      <img data-src="assets/untitled_storyboard_032.png" alt="Untitled storyboard — slide 32" class="pass-img" data-index="32">
+      <img data-src="assets/untitled_storyboard_033.png" alt="Untitled storyboard — slide 33" class="pass-img" data-index="33">
+      <img data-src="assets/untitled_storyboard_034.png" alt="Untitled storyboard — slide 34" class="pass-img" data-index="34">
+      <img data-src="assets/untitled_storyboard_035.png" alt="Untitled storyboard — slide 35" class="pass-img" data-index="35">
+      <img data-src="assets/untitled_storyboard_036.png" alt="Untitled storyboard — slide 36" class="pass-img" data-index="36">
+      <img data-src="assets/untitled_storyboard_037.png" alt="Untitled storyboard — slide 37" class="pass-img" data-index="37">
+      <img data-src="assets/untitled_storyboard_038.png" alt="Untitled storyboard — slide 38" class="pass-img" data-index="38">
+      <img data-src="assets/untitled_storyboard_039.png" alt="Untitled storyboard — slide 39" class="pass-img" data-index="39">
+      <img data-src="assets/untitled_storyboard_040.png" alt="Untitled storyboard — slide 40" class="pass-img" data-index="40">
+      <img data-src="assets/untitled_storyboard_041.png" alt="Untitled storyboard — slide 41" class="pass-img" data-index="41">
+      <img data-src="assets/untitled_storyboard_042.png" alt="Untitled storyboard — slide 42" class="pass-img" data-index="42">
+      <img data-src="assets/untitled_storyboard_043.png" alt="Untitled storyboard — slide 43" class="pass-img" data-index="43">
+      <img data-src="assets/untitled_storyboard_044.png" alt="Untitled storyboard — slide 44" class="pass-img" data-index="44">
+      <img data-src="assets/untitled_storyboard_045.png" alt="Untitled storyboard — slide 45" class="pass-img" data-index="45">
+      <img data-src="assets/untitled_storyboard_046.png" alt="Untitled storyboard — slide 46" class="pass-img" data-index="46">
+      <img data-src="assets/untitled_storyboard_047.png" alt="Untitled storyboard — slide 47" class="pass-img" data-index="47">
+      <img data-src="assets/untitled_storyboard_048.png" alt="Untitled storyboard — slide 48" class="pass-img" data-index="48">
+      <img data-src="assets/untitled_storyboard_049.png" alt="Untitled storyboard — slide 49" class="pass-img" data-index="49">
+      <img data-src="assets/untitled_storyboard_050.png" alt="Untitled storyboard — slide 50" class="pass-img" data-index="50">
+      <img data-src="assets/untitled_storyboard_051.png" alt="Untitled storyboard — slide 51" class="pass-img" data-index="51">
+      <img data-src="assets/untitled_storyboard_052.png" alt="Untitled storyboard — slide 52" class="pass-img" data-index="52">
+      <img data-src="assets/untitled_storyboard_053.png" alt="Untitled storyboard — slide 53" class="pass-img" data-index="53">
+      <img data-src="assets/untitled_storyboard_054.png" alt="Untitled storyboard — slide 54" class="pass-img" data-index="54">
+      <img data-src="assets/untitled_storyboard_055.png" alt="Untitled storyboard — slide 55" class="pass-img" data-index="55">
+      <img data-src="assets/untitled_storyboard_056.png" alt="Untitled storyboard — slide 56" class="pass-img" data-index="56">
+      <img data-src="assets/untitled_storyboard_057.png" alt="Untitled storyboard — slide 57" class="pass-img" data-index="57">
+      <img data-src="assets/untitled_storyboard_058.png" alt="Untitled storyboard — slide 58" class="pass-img" data-index="58">
+      <img data-src="assets/untitled_storyboard_059.png" alt="Untitled storyboard — slide 59" class="pass-img" data-index="59">
+      <img data-src="assets/untitled_storyboard_060.png" alt="Untitled storyboard — slide 60" class="pass-img" data-index="60">
+      <img data-src="assets/untitled_storyboard_061.png" alt="Untitled storyboard — slide 61" class="pass-img" data-index="61">
+      <img data-src="assets/untitled_storyboard_062.png" alt="Untitled storyboard — slide 62" class="pass-img" data-index="62">
+      <img data-src="assets/untitled_storyboard_063.png" alt="Untitled storyboard — slide 63" class="pass-img" data-index="63">
+      <img data-src="assets/untitled_storyboard_064.png" alt="Untitled storyboard — slide 64" class="pass-img" data-index="64">
+      <img data-src="assets/untitled_storyboard_065.png" alt="Untitled storyboard — slide 65" class="pass-img" data-index="65">
+      <img data-src="assets/untitled_storyboard_066.png" alt="Untitled storyboard — slide 66" class="pass-img" data-index="66">
+      <img data-src="assets/untitled_storyboard_067.png" alt="Untitled storyboard — slide 67" class="pass-img" data-index="67">
+      <img data-src="assets/untitled_storyboard_068.png" alt="Untitled storyboard — slide 68" class="pass-img" data-index="68">
+      <img data-src="assets/untitled_storyboard_069.png" alt="Untitled storyboard — slide 69" class="pass-img" data-index="69">
+      <img data-src="assets/untitled_storyboard_070.png" alt="Untitled storyboard — slide 70" class="pass-img" data-index="70">
+      <img data-src="assets/untitled_storyboard_071.png" alt="Untitled storyboard — slide 71" class="pass-img" data-index="71">
+      <img data-src="assets/untitled_storyboard_072.png" alt="Untitled storyboard — slide 72" class="pass-img" data-index="72">
+      <img data-src="assets/untitled_storyboard_073.png" alt="Untitled storyboard — slide 73" class="pass-img" data-index="73">
+      <img data-src="assets/untitled_storyboard_074.png" alt="Untitled storyboard — slide 74" class="pass-img" data-index="74">
+      <img data-src="assets/untitled_storyboard_075.png" alt="Untitled storyboard — slide 75" class="pass-img" data-index="75">
+      <img data-src="assets/untitled_storyboard_076.png" alt="Untitled storyboard — slide 76" class="pass-img" data-index="76">
+      <img data-src="assets/untitled_storyboard_077.png" alt="Untitled storyboard — slide 77" class="pass-img" data-index="77">
+      <img data-src="assets/untitled_storyboard_078.png" alt="Untitled storyboard — slide 78" class="pass-img" data-index="78">
+      <img data-src="assets/untitled_storyboard_079.png" alt="Untitled storyboard — slide 79" class="pass-img" data-index="79">
+      <img data-src="assets/untitled_storyboard_080.png" alt="Untitled storyboard — slide 80" class="pass-img" data-index="80">
+      <img data-src="assets/untitled_storyboard_081.png" alt="Untitled storyboard — slide 81" class="pass-img" data-index="81">
+      <img data-src="assets/untitled_storyboard_082.png" alt="Untitled storyboard — slide 82" class="pass-img" data-index="82">
+      <img data-src="assets/untitled_storyboard_083.png" alt="Untitled storyboard — slide 83" class="pass-img" data-index="83">
+      <img data-src="assets/untitled_storyboard_084.png" alt="Untitled storyboard — slide 84" class="pass-img" data-index="84">
+      <img data-src="assets/untitled_storyboard_085.png" alt="Untitled storyboard — slide 85" class="pass-img" data-index="85">
+      <img data-src="assets/untitled_storyboard_086.png" alt="Untitled storyboard — slide 86" class="pass-img" data-index="86">
+      <img data-src="assets/untitled_storyboard_087.png" alt="Untitled storyboard — slide 87" class="pass-img" data-index="87">
+      <img data-src="assets/untitled_storyboard_088.png" alt="Untitled storyboard — slide 88" class="pass-img" data-index="88">
+      <img data-src="assets/untitled_storyboard_089.png" alt="Untitled storyboard — slide 89" class="pass-img" data-index="89">
+      <img data-src="assets/untitled_storyboard_090.png" alt="Untitled storyboard — slide 90" class="pass-img" data-index="90">
+      <img data-src="assets/untitled_storyboard_091.png" alt="Untitled storyboard — slide 91" class="pass-img" data-index="91">
+      <img data-src="assets/untitled_storyboard_092.png" alt="Untitled storyboard — slide 92" class="pass-img" data-index="92">
+      <img data-src="assets/untitled_storyboard_093.png" alt="Untitled storyboard — slide 93" class="pass-img" data-index="93">
+      <img data-src="assets/untitled_storyboard_094.png" alt="Untitled storyboard — slide 94" class="pass-img" data-index="94">
+      <img data-src="assets/untitled_storyboard_095.png" alt="Untitled storyboard — slide 95" class="pass-img" data-index="95">
+      <img data-src="assets/untitled_storyboard_096.png" alt="Untitled storyboard — slide 96" class="pass-img" data-index="96">
+      <img data-src="assets/untitled_storyboard_097.png" alt="Untitled storyboard — slide 97" class="pass-img" data-index="97">
+      <img data-src="assets/untitled_storyboard_098.png" alt="Untitled storyboard — slide 98" class="pass-img" data-index="98">
+      <img data-src="assets/untitled_storyboard_099.png" alt="Untitled storyboard — slide 99" class="pass-img" data-index="99">
+      <img data-src="assets/untitled_storyboard_100.png" alt="Untitled storyboard — slide 100" class="pass-img" data-index="100">
+      <img data-src="assets/untitled_storyboard_101.png" alt="Untitled storyboard — slide 101" class="pass-img" data-index="101">
+      <img data-src="assets/untitled_storyboard_102.png" alt="Untitled storyboard — slide 102" class="pass-img" data-index="102">
+      <img data-src="assets/untitled_storyboard_103.png" alt="Untitled storyboard — slide 103" class="pass-img" data-index="103">
+      <img data-src="assets/untitled_storyboard_104.png" alt="Untitled storyboard — slide 104" class="pass-img" data-index="104">
+      <img data-src="assets/untitled_storyboard_105.png" alt="Untitled storyboard — slide 105" class="pass-img" data-index="105">
+      <img data-src="assets/untitled_storyboard_106.png" alt="Untitled storyboard — slide 106" class="pass-img" data-index="106">
+      <img data-src="assets/untitled_storyboard_107.png" alt="Untitled storyboard — slide 107" class="pass-img" data-index="107">
+      <img data-src="assets/untitled_storyboard_108.png" alt="Untitled storyboard — slide 108" class="pass-img" data-index="108">
+      <img data-src="assets/untitled_storyboard_109.png" alt="Untitled storyboard — slide 109" class="pass-img" data-index="109">
+      <img data-src="assets/untitled_storyboard_110.png" alt="Untitled storyboard — slide 110" class="pass-img" data-index="110">
+      <img data-src="assets/untitled_storyboard_111.png" alt="Untitled storyboard — slide 111" class="pass-img" data-index="111">
+      <img data-src="assets/untitled_storyboard_112.png" alt="Untitled storyboard — slide 112" class="pass-img" data-index="112">
+      <img data-src="assets/untitled_storyboard_113.png" alt="Untitled storyboard — slide 113" class="pass-img" data-index="113">
+      <img data-src="assets/untitled_storyboard_114.png" alt="Untitled storyboard — slide 114" class="pass-img" data-index="114">
+      <img data-src="assets/untitled_storyboard_115.png" alt="Untitled storyboard — slide 115" class="pass-img" data-index="115">
+      <img data-src="assets/untitled_storyboard_116.png" alt="Untitled storyboard — slide 116" class="pass-img" data-index="116">
+      <img data-src="assets/untitled_storyboard_117.png" alt="Untitled storyboard — slide 117" class="pass-img" data-index="117">
+      <img data-src="assets/untitled_storyboard_118.png" alt="Untitled storyboard — slide 118" class="pass-img" data-index="118">
+      <img data-src="assets/untitled_storyboard_119.png" alt="Untitled storyboard — slide 119" class="pass-img" data-index="119">
+      <img data-src="assets/untitled_storyboard_120.png" alt="Untitled storyboard — slide 120" class="pass-img" data-index="120">
+      <img data-src="assets/untitled_storyboard_121.png" alt="Untitled storyboard — slide 121" class="pass-img" data-index="121">
+      <img data-src="assets/untitled_storyboard_122.png" alt="Untitled storyboard — slide 122" class="pass-img" data-index="122">
+      <img data-src="assets/untitled_storyboard_123.png" alt="Untitled storyboard — slide 123" class="pass-img" data-index="123">
+      <img data-src="assets/untitled_storyboard_124.png" alt="Untitled storyboard — slide 124" class="pass-img" data-index="124">
+      <img data-src="assets/untitled_storyboard_125.png" alt="Untitled storyboard — slide 125" class="pass-img" data-index="125">
+      <img data-src="assets/untitled_storyboard_126.png" alt="Untitled storyboard — slide 126" class="pass-img" data-index="126">
+      <img data-src="assets/untitled_storyboard_127.png" alt="Untitled storyboard — slide 127" class="pass-img" data-index="127">
+      <img data-src="assets/untitled_storyboard_128.png" alt="Untitled storyboard — slide 128" class="pass-img" data-index="128">
+      <img data-src="assets/untitled_storyboard_129.png" alt="Untitled storyboard — slide 129" class="pass-img" data-index="129">
+      <img data-src="assets/untitled_storyboard_130.png" alt="Untitled storyboard — slide 130" class="pass-img" data-index="130">
+      <img data-src="assets/untitled_storyboard_131.png" alt="Untitled storyboard — slide 131" class="pass-img" data-index="131">
+      <img data-src="assets/untitled_storyboard_132.png" alt="Untitled storyboard — slide 132" class="pass-img" data-index="132">
+      <img data-src="assets/untitled_storyboard_133.png" alt="Untitled storyboard — slide 133" class="pass-img" data-index="133">
+      <img data-src="assets/untitled_storyboard_134.png" alt="Untitled storyboard — slide 134" class="pass-img" data-index="134">
+      <img data-src="assets/untitled_storyboard_135.png" alt="Untitled storyboard — slide 135" class="pass-img" data-index="135">
+      <img data-src="assets/untitled_storyboard_136.png" alt="Untitled storyboard — slide 136" class="pass-img" data-index="136">
+      <img data-src="assets/untitled_storyboard_137.png" alt="Untitled storyboard — slide 137" class="pass-img" data-index="137">
+      <img data-src="assets/untitled_storyboard_138.png" alt="Untitled storyboard — slide 138" class="pass-img" data-index="138">
+      <img data-src="assets/untitled_storyboard_139.png" alt="Untitled storyboard — slide 139" class="pass-img" data-index="139">
+      <img data-src="assets/untitled_storyboard_140.png" alt="Untitled storyboard — slide 140" class="pass-img" data-index="140">
+      <img data-src="assets/untitled_storyboard_141.png" alt="Untitled storyboard — slide 141" class="pass-img" data-index="141">
+      <img data-src="assets/untitled_storyboard_142.png" alt="Untitled storyboard — slide 142" class="pass-img" data-index="142">
+      <img data-src="assets/untitled_storyboard_143.png" alt="Untitled storyboard — slide 143" class="pass-img" data-index="143">
+      <img data-src="assets/untitled_storyboard_144.png" alt="Untitled storyboard — slide 144" class="pass-img" data-index="144">
+      <img data-src="assets/untitled_storyboard_145.png" alt="Untitled storyboard — slide 145" class="pass-img" data-index="145">
+      <img data-src="assets/untitled_storyboard_146.png" alt="Untitled storyboard — slide 146" class="pass-img" data-index="146">
+      <img data-src="assets/untitled_storyboard_147.png" alt="Untitled storyboard — slide 147" class="pass-img" data-index="147">
+      <img data-src="assets/untitled_storyboard_148.png" alt="Untitled storyboard — slide 148" class="pass-img" data-index="148">
+      <img data-src="assets/untitled_storyboard_149.png" alt="Untitled storyboard — slide 149" class="pass-img" data-index="149">
+      <img data-src="assets/untitled_storyboard_150.png" alt="Untitled storyboard — slide 150" class="pass-img" data-index="150">      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pass-nav next" id="passNext" aria-label="Next slide">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
-    <a href="https://docs.google.com/presentation/d/145GX0oq_u2fpwHZViHgHQivpxLlz2xNw/edit?usp=sharing" target="_blank" rel="noopener" class="open-external">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></svg>
-      Open in Google Slides for best mobile viewing
-    </a>
+    <div class="pass-progress" id="passProgress">
+      <div class="pass-progress-fill" id="passProgressFill"></div>
+    </div>
   </section>
 
 </main>
@@ -242,6 +436,105 @@
 <footer>
   © 2026 Perry Chu
 </footer>
+
+<script>
+  // Slide viewer — click arrows, drag the progress bar, swipe, hover-scrub, or use
+  // arrow keys to move through the deck. Images lazy-load: only the current slide
+  // plus its immediate neighbors are fetched, so a 150-page deck doesn't load
+  // 150 images up front.
+  (function(){
+    var stage = document.getElementById('passViewer');
+    if(!stage) return;
+    var slides = Array.prototype.slice.call(stage.querySelectorAll('.pass-img'));
+    var count = document.getElementById('passCount');
+    var prevBtn = document.getElementById('passPrev');
+    var nextBtn = document.getElementById('passNext');
+    var progress = document.getElementById('passProgress');
+    var progressFill = document.getElementById('passProgressFill');
+    var total = slides.length;
+    var current = 0;
+
+    function loadSlide(i){
+      if(i < 0 || i >= total) return;
+      var img = slides[i];
+      if(!img.src && img.dataset.src){ img.src = img.dataset.src; }
+    }
+
+    function show(i){
+      var newIdx = (i + total) % total;
+      if(newIdx === current){ return; }
+      var prevIdx = current;
+      current = newIdx;
+
+      loadSlide(current);
+      loadSlide(current - 1);
+      loadSlide(current + 1);
+
+      // Layer the incoming slide on top and fade it in; the outgoing slide
+      // stays fully opaque underneath so the black stage background never shows through.
+      slides[current].classList.add('is-active');
+      window.setTimeout(function(){
+        if(prevIdx !== current){
+          slides[prevIdx].classList.remove('is-active');
+        }
+      }, 550);
+
+      count.textContent = String(current+1).padStart(3,'0') + ' / ' + String(total).padStart(3,'0');
+      progressFill.style.width = (((current+1) / total) * 100) + '%';
+    }
+
+    function next(){ show(current + 1); }
+    function prev(){ show(current - 1); }
+
+    // Preload the second slide right away so the first "next" click is instant.
+    loadSlide(1);
+
+    if(nextBtn) nextBtn.addEventListener('click', next);
+    if(prevBtn) prevBtn.addEventListener('click', prev);
+
+    document.addEventListener('keydown', function(e){
+      var rect = stage.getBoundingClientRect();
+      if(rect.bottom < 0 || rect.top > window.innerHeight) return; // only when viewer is on screen
+      if(e.key === 'ArrowRight'){ next(); }
+      else if(e.key === 'ArrowLeft'){ prev(); }
+    });
+
+    var touchStartX = null;
+    stage.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive:true });
+    stage.addEventListener('touchend', function(e){
+      if(touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if(dx > 40) prev();
+      else if(dx < -40) next();
+      touchStartX = null;
+    }, { passive:true });
+    stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
+
+    // Hover follow — moving the mouse across the viewer scrubs through the deck live.
+    stage.addEventListener('mousemove', function(e){
+      var rect = stage.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      relX = Math.min(Math.max(relX, 0), 0.999);
+      var idx = Math.floor(relX * total);
+      if(idx !== current) show(idx);
+    });
+
+    // Click/drag the progress bar to jump to any point in the deck.
+    function seekFromEvent(e){
+      var rect = progress.getBoundingClientRect();
+      var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      var relX = (clientX - rect.left) / rect.width;
+      relX = Math.min(Math.max(relX, 0), 0.999);
+      show(Math.floor(relX * total));
+    }
+    var isSeeking = false;
+    progress.addEventListener('mousedown', function(e){ isSeeking = true; seekFromEvent(e); });
+    window.addEventListener('mousemove', function(e){ if(isSeeking) seekFromEvent(e); });
+    window.addEventListener('mouseup', function(){ isSeeking = false; });
+    progress.addEventListener('touchstart', function(e){ seekFromEvent(e); }, { passive:true });
+    progress.addEventListener('touchmove', function(e){ seekFromEvent(e); }, { passive:true });
+  })();
+</script>
 
 </body>
 </html>
