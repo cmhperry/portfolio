@@ -481,15 +481,28 @@
     });
 
     var touchStartX = null;
+    var justSwiped = false;
     stage.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive:true });
     stage.addEventListener('touchend', function(e){
       if(touchStartX === null) return;
       var dx = e.changedTouches[0].clientX - touchStartX;
-      if(dx > 40) prev();
-      else if(dx < -40) next();
+      justSwiped = false;
+      if(dx > 40){ prev(); justSwiped = true; }
+      else if(dx < -40){ next(); justSwiped = true; }
       touchStartX = null;
     }, { passive:true });
     stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
+
+    // Click anywhere on the image — left half goes back, right half goes forward.
+    // Arrow buttons keep working as their own explicit controls, and a tap that
+    // already triggered a swipe-navigation doesn't also fire this.
+    stage.addEventListener('click', function(e){
+      if(justSwiped){ justSwiped = false; return; }
+      if(e.target.closest && e.target.closest('.pass-nav')) return;
+      var rect = stage.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      if(relX < 0.5){ prev(); } else { next(); }
+    });
 
     // Hover follow — moving the mouse across the viewer scrubs through the deck live.
     // Only enabled on devices with a real hover-capable pointer (mice/trackpads).
