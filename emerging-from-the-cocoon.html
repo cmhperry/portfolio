@@ -148,6 +148,14 @@
   /* ---------- SLIDE VIEWER ---------- */
   .pass-section{
     padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:150%;
+    max-width:min(1500px, 96vw);
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  @media (max-width:900px){
+    .pass-section{ width:100%; max-width:100%; left:0; transform:none; }
   }
   .pass-viewer{
     position:relative;
