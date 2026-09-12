@@ -282,6 +282,35 @@
   }
   .pass-dot.is-active{ background:var(--accent); }
 
+  .gallery-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:150%;
+    max-width:min(1500px, 96vw);
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  @media (max-width:900px){
+    .gallery-section{ width:100%; max-width:100%; left:0; transform:none; }
+  }
+  .gallery-section-inner{
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+  }
+  .gallery-frame{
+    border:1px solid var(--line-strong);
+    background:var(--bg-alt);
+    padding:12px;
+    border-radius:6px;
+  }
+  .gallery-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:4px;
+  }
+
   footer{
     border-top:1px solid var(--line);
     padding:1.6rem var(--gap);
@@ -355,6 +384,17 @@
       </button>
     </div>
     <div class="pass-dots" id="passDots"></div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-section-inner">
+      <div class="gallery-frame">
+        <img src="assets/sonic_terra_donpafactory_001_logo.jpg" alt="Sonic Racing: Crossworlds — Lava Zone factory key art">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/sonic_terra_donpafactory_002_logo.jpg" alt="Sonic Racing: Crossworlds — race track key art">
+      </div>
+    </div>
   </section>
 
 </main>
