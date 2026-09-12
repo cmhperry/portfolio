@@ -221,6 +221,7 @@
   .pass-label{
     position:absolute;
     top:14px; left:16px;
+    max-width:min(60%, 420px);
     font-family:'IBM Plex Mono', monospace;
     font-size:0.78rem;
     font-weight:500;
@@ -231,6 +232,7 @@
     padding:0.35em 0.7em;
     border-radius:3px;
     backdrop-filter:blur(4px);
+    line-height:1.4;
     z-index:3;
   }
   .pass-count{
@@ -338,13 +340,13 @@
 
   <section class="pass-section">
     <div class="pass-viewer" id="passViewer">
-      <span class="pass-label" id="passLabel">Frame 01</span>
+      <span class="pass-label" id="passLabel">Background — Flat Base Color &amp; Gradient</span>
       <span class="pass-count" id="passCount">01 / 05</span>
-      <img src="assets/sonic_terra_sc03sh0200_001.jpg" alt="Sonic Racing: Crossworlds — frame 01" class="pass-img is-active" data-label="Frame 01">
-      <img src="assets/sonic_terra_sc03sh0200_002.jpg" alt="Sonic Racing: Crossworlds — frame 02" class="pass-img" data-label="Frame 02">
-      <img src="assets/sonic_terra_sc03sh0200_003.jpg" alt="Sonic Racing: Crossworlds — frame 03" class="pass-img" data-label="Frame 03">
-      <img src="assets/sonic_terra_sc03sh0200_004.jpg" alt="Sonic Racing: Crossworlds — frame 04" class="pass-img" data-label="Frame 04">
-      <img src="assets/sonic_terra_sc03sh0200_005.jpg" alt="Sonic Racing: Crossworlds — frame 05" class="pass-img" data-label="Frame 05">
+      <img src="assets/sonic_terra_sc03sh0200_001.jpg" alt="Sonic Racing: Crossworlds — background flat base color with gradient" class="pass-img is-active" data-label="Background — Flat Base Color &amp; Gradient">
+      <img src="assets/sonic_terra_sc03sh0200_002.jpg" alt="Sonic Racing: Crossworlds — background camera-based gradient depth and emissions" class="pass-img" data-label="Background — Camera-Based Gradient Depth &amp; Emissions">
+      <img src="assets/sonic_terra_sc03sh0200_003.jpg" alt="Sonic Racing: Crossworlds — speed lines" class="pass-img" data-label="Speed Lines">
+      <img src="assets/sonic_terra_sc03sh0200_004.jpg" alt="Sonic Racing: Crossworlds — character layer flat base color and lines" class="pass-img" data-label="Character Layer — Flat Base Color &amp; Lines">
+      <img src="assets/sonic_terra_sc03sh0200_005.jpg" alt="Sonic Racing: Crossworlds — enhanced character shadows and emissions" class="pass-img" data-label="Enhanced Character Shadows &amp; Emissions">
       <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous frame">
         <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
