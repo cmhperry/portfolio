@@ -145,28 +145,80 @@
     max-width:56ch;
   }
 
-  .deck-section{ padding-bottom:clamp(3rem, 7vw, 5rem); }
-  .deck-embed{
+  /* ---------- SLIDE VIEWER ---------- */
+  .pass-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+  }
+  .pass-viewer{
     position:relative;
     width:100%;
-    padding-bottom:59.27%;
+    padding-bottom:74.07%;
     height:0;
-    overflow:hidden;
+    margin:0 auto;
+    background:#000;
     border:1px solid var(--line-strong);
-    background:var(--bg-alt);
     border-radius:6px;
+    overflow:hidden;
+    cursor:ew-resize;
+    user-select:none;
+    touch-action:pan-y;
     box-sizing:border-box;
   }
-  .deck-embed iframe{
-    position:absolute;
-    top:12px; left:12px; right:12px; bottom:12px;
-    width:calc(100% - 24px);
-    height:calc(100% - 24px);
-    border:0;
-    border-radius:4px;
+  .pass-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:contain;
+    opacity:0;
+    pointer-events:none;
+    z-index:1;
   }
-  @media (max-width:600px){
-    .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
+  .pass-img.is-active{ opacity:1; pointer-events:auto; z-index:2; }
+  .pass-count{
+    position:absolute;
+    top:14px; right:16px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:var(--ink);
+    background:rgba(14,15,18,0.55);
+    padding:0.35em 0.7em;
+    border-radius:3px;
+    backdrop-filter:blur(4px);
+    z-index:3;
+  }
+  .pass-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid rgba(242,241,236,0.25);
+    background:rgba(255,255,255,0.08);
+    color:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .pass-nav:hover{ background:rgba(255,255,255,0.18); border-color:var(--accent); }
+  .pass-nav svg{ width:14px; height:14px; }
+  .pass-nav.prev{ left:12px; }
+  .pass-nav.next{ right:12px; }
+  .pass-progress{
+    position:relative;
+    height:4px;
+    margin:1rem var(--gap) 0;
+    background:var(--line-strong);
+    border-radius:2px;
+    cursor:pointer;
+  }
+  .pass-progress-fill{
+    position:absolute;
+    top:0; left:0; bottom:0;
+    width:0.32%;
+    background:var(--accent);
+    border-radius:2px;
+    transition:width 0.3s ease;
   }
 
   footer{
@@ -210,11 +262,329 @@
     <p>Storyboard sequence.</p>
   </section>
 
-  <section class="deck-section">
-    <div class="deck-embed">
-      <iframe src="https://docs.google.com/presentation/d/1ID78xwJeCga45hQ5If2x1yepa21DFTTw/embed?start=false&amp;loop=false&amp;delayms=3000"
-        title="Emerging From The Cocoon"
-        allowfullscreen="true"></iframe>
+  <section class="pass-section">
+    <div class="pass-viewer" id="passViewer">
+      <span class="pass-count" id="passCount">001 / 312</span>
+      <img src="assets/cocoon_storyboard_001.jpg" alt="Emerging From The Cocoon storyboard — slide 1" class="pass-img is-active" data-index="1">
+      <img src="assets/cocoon_storyboard_002.jpg" alt="Emerging From The Cocoon storyboard — slide 2" class="pass-img" data-index="2">
+      <img src="assets/cocoon_storyboard_003.jpg" alt="Emerging From The Cocoon storyboard — slide 3" class="pass-img" data-index="3">
+      <img src="assets/cocoon_storyboard_004.jpg" alt="Emerging From The Cocoon storyboard — slide 4" class="pass-img" data-index="4">
+      <img src="assets/cocoon_storyboard_005.jpg" alt="Emerging From The Cocoon storyboard — slide 5" class="pass-img" data-index="5">
+      <img src="assets/cocoon_storyboard_006.jpg" alt="Emerging From The Cocoon storyboard — slide 6" class="pass-img" data-index="6">
+      <img src="assets/cocoon_storyboard_007.jpg" alt="Emerging From The Cocoon storyboard — slide 7" class="pass-img" data-index="7">
+      <img src="assets/cocoon_storyboard_008.jpg" alt="Emerging From The Cocoon storyboard — slide 8" class="pass-img" data-index="8">
+      <img src="assets/cocoon_storyboard_009.jpg" alt="Emerging From The Cocoon storyboard — slide 9" class="pass-img" data-index="9">
+      <img src="assets/cocoon_storyboard_010.jpg" alt="Emerging From The Cocoon storyboard — slide 10" class="pass-img" data-index="10">
+      <img src="assets/cocoon_storyboard_011.jpg" alt="Emerging From The Cocoon storyboard — slide 11" class="pass-img" data-index="11">
+      <img src="assets/cocoon_storyboard_012.jpg" alt="Emerging From The Cocoon storyboard — slide 12" class="pass-img" data-index="12">
+      <img src="assets/cocoon_storyboard_013.jpg" alt="Emerging From The Cocoon storyboard — slide 13" class="pass-img" data-index="13">
+      <img src="assets/cocoon_storyboard_014.jpg" alt="Emerging From The Cocoon storyboard — slide 14" class="pass-img" data-index="14">
+      <img src="assets/cocoon_storyboard_015.jpg" alt="Emerging From The Cocoon storyboard — slide 15" class="pass-img" data-index="15">
+      <img src="assets/cocoon_storyboard_016.jpg" alt="Emerging From The Cocoon storyboard — slide 16" class="pass-img" data-index="16">
+      <img src="assets/cocoon_storyboard_017.jpg" alt="Emerging From The Cocoon storyboard — slide 17" class="pass-img" data-index="17">
+      <img src="assets/cocoon_storyboard_018.jpg" alt="Emerging From The Cocoon storyboard — slide 18" class="pass-img" data-index="18">
+      <img src="assets/cocoon_storyboard_019.jpg" alt="Emerging From The Cocoon storyboard — slide 19" class="pass-img" data-index="19">
+      <img src="assets/cocoon_storyboard_020.jpg" alt="Emerging From The Cocoon storyboard — slide 20" class="pass-img" data-index="20">
+      <img src="assets/cocoon_storyboard_021.jpg" alt="Emerging From The Cocoon storyboard — slide 21" class="pass-img" data-index="21">
+      <img src="assets/cocoon_storyboard_022.jpg" alt="Emerging From The Cocoon storyboard — slide 22" class="pass-img" data-index="22">
+      <img src="assets/cocoon_storyboard_023.jpg" alt="Emerging From The Cocoon storyboard — slide 23" class="pass-img" data-index="23">
+      <img src="assets/cocoon_storyboard_024.jpg" alt="Emerging From The Cocoon storyboard — slide 24" class="pass-img" data-index="24">
+      <img src="assets/cocoon_storyboard_025.jpg" alt="Emerging From The Cocoon storyboard — slide 25" class="pass-img" data-index="25">
+      <img src="assets/cocoon_storyboard_026.jpg" alt="Emerging From The Cocoon storyboard — slide 26" class="pass-img" data-index="26">
+      <img src="assets/cocoon_storyboard_027.jpg" alt="Emerging From The Cocoon storyboard — slide 27" class="pass-img" data-index="27">
+      <img src="assets/cocoon_storyboard_028.jpg" alt="Emerging From The Cocoon storyboard — slide 28" class="pass-img" data-index="28">
+      <img src="assets/cocoon_storyboard_029.jpg" alt="Emerging From The Cocoon storyboard — slide 29" class="pass-img" data-index="29">
+      <img src="assets/cocoon_storyboard_030.jpg" alt="Emerging From The Cocoon storyboard — slide 30" class="pass-img" data-index="30">
+      <img src="assets/cocoon_storyboard_031.jpg" alt="Emerging From The Cocoon storyboard — slide 31" class="pass-img" data-index="31">
+      <img src="assets/cocoon_storyboard_032.jpg" alt="Emerging From The Cocoon storyboard — slide 32" class="pass-img" data-index="32">
+      <img src="assets/cocoon_storyboard_033.jpg" alt="Emerging From The Cocoon storyboard — slide 33" class="pass-img" data-index="33">
+      <img src="assets/cocoon_storyboard_034.jpg" alt="Emerging From The Cocoon storyboard — slide 34" class="pass-img" data-index="34">
+      <img src="assets/cocoon_storyboard_035.jpg" alt="Emerging From The Cocoon storyboard — slide 35" class="pass-img" data-index="35">
+      <img src="assets/cocoon_storyboard_036.jpg" alt="Emerging From The Cocoon storyboard — slide 36" class="pass-img" data-index="36">
+      <img src="assets/cocoon_storyboard_037.jpg" alt="Emerging From The Cocoon storyboard — slide 37" class="pass-img" data-index="37">
+      <img src="assets/cocoon_storyboard_038.jpg" alt="Emerging From The Cocoon storyboard — slide 38" class="pass-img" data-index="38">
+      <img src="assets/cocoon_storyboard_039.jpg" alt="Emerging From The Cocoon storyboard — slide 39" class="pass-img" data-index="39">
+      <img src="assets/cocoon_storyboard_040.jpg" alt="Emerging From The Cocoon storyboard — slide 40" class="pass-img" data-index="40">
+      <img src="assets/cocoon_storyboard_041.jpg" alt="Emerging From The Cocoon storyboard — slide 41" class="pass-img" data-index="41">
+      <img src="assets/cocoon_storyboard_042.jpg" alt="Emerging From The Cocoon storyboard — slide 42" class="pass-img" data-index="42">
+      <img src="assets/cocoon_storyboard_043.jpg" alt="Emerging From The Cocoon storyboard — slide 43" class="pass-img" data-index="43">
+      <img src="assets/cocoon_storyboard_044.jpg" alt="Emerging From The Cocoon storyboard — slide 44" class="pass-img" data-index="44">
+      <img src="assets/cocoon_storyboard_045.jpg" alt="Emerging From The Cocoon storyboard — slide 45" class="pass-img" data-index="45">
+      <img src="assets/cocoon_storyboard_046.jpg" alt="Emerging From The Cocoon storyboard — slide 46" class="pass-img" data-index="46">
+      <img src="assets/cocoon_storyboard_047.jpg" alt="Emerging From The Cocoon storyboard — slide 47" class="pass-img" data-index="47">
+      <img src="assets/cocoon_storyboard_048.jpg" alt="Emerging From The Cocoon storyboard — slide 48" class="pass-img" data-index="48">
+      <img src="assets/cocoon_storyboard_049.jpg" alt="Emerging From The Cocoon storyboard — slide 49" class="pass-img" data-index="49">
+      <img src="assets/cocoon_storyboard_050.jpg" alt="Emerging From The Cocoon storyboard — slide 50" class="pass-img" data-index="50">
+      <img src="assets/cocoon_storyboard_051.jpg" alt="Emerging From The Cocoon storyboard — slide 51" class="pass-img" data-index="51">
+      <img src="assets/cocoon_storyboard_052.jpg" alt="Emerging From The Cocoon storyboard — slide 52" class="pass-img" data-index="52">
+      <img src="assets/cocoon_storyboard_053.jpg" alt="Emerging From The Cocoon storyboard — slide 53" class="pass-img" data-index="53">
+      <img src="assets/cocoon_storyboard_054.jpg" alt="Emerging From The Cocoon storyboard — slide 54" class="pass-img" data-index="54">
+      <img src="assets/cocoon_storyboard_055.jpg" alt="Emerging From The Cocoon storyboard — slide 55" class="pass-img" data-index="55">
+      <img src="assets/cocoon_storyboard_056.jpg" alt="Emerging From The Cocoon storyboard — slide 56" class="pass-img" data-index="56">
+      <img src="assets/cocoon_storyboard_057.jpg" alt="Emerging From The Cocoon storyboard — slide 57" class="pass-img" data-index="57">
+      <img src="assets/cocoon_storyboard_058.jpg" alt="Emerging From The Cocoon storyboard — slide 58" class="pass-img" data-index="58">
+      <img src="assets/cocoon_storyboard_059.jpg" alt="Emerging From The Cocoon storyboard — slide 59" class="pass-img" data-index="59">
+      <img src="assets/cocoon_storyboard_060.jpg" alt="Emerging From The Cocoon storyboard — slide 60" class="pass-img" data-index="60">
+      <img src="assets/cocoon_storyboard_061.jpg" alt="Emerging From The Cocoon storyboard — slide 61" class="pass-img" data-index="61">
+      <img src="assets/cocoon_storyboard_062.jpg" alt="Emerging From The Cocoon storyboard — slide 62" class="pass-img" data-index="62">
+      <img src="assets/cocoon_storyboard_063.jpg" alt="Emerging From The Cocoon storyboard — slide 63" class="pass-img" data-index="63">
+      <img src="assets/cocoon_storyboard_064.jpg" alt="Emerging From The Cocoon storyboard — slide 64" class="pass-img" data-index="64">
+      <img src="assets/cocoon_storyboard_065.jpg" alt="Emerging From The Cocoon storyboard — slide 65" class="pass-img" data-index="65">
+      <img src="assets/cocoon_storyboard_066.jpg" alt="Emerging From The Cocoon storyboard — slide 66" class="pass-img" data-index="66">
+      <img src="assets/cocoon_storyboard_067.jpg" alt="Emerging From The Cocoon storyboard — slide 67" class="pass-img" data-index="67">
+      <img src="assets/cocoon_storyboard_068.jpg" alt="Emerging From The Cocoon storyboard — slide 68" class="pass-img" data-index="68">
+      <img src="assets/cocoon_storyboard_069.jpg" alt="Emerging From The Cocoon storyboard — slide 69" class="pass-img" data-index="69">
+      <img src="assets/cocoon_storyboard_070.jpg" alt="Emerging From The Cocoon storyboard — slide 70" class="pass-img" data-index="70">
+      <img src="assets/cocoon_storyboard_071.jpg" alt="Emerging From The Cocoon storyboard — slide 71" class="pass-img" data-index="71">
+      <img src="assets/cocoon_storyboard_072.jpg" alt="Emerging From The Cocoon storyboard — slide 72" class="pass-img" data-index="72">
+      <img src="assets/cocoon_storyboard_073.jpg" alt="Emerging From The Cocoon storyboard — slide 73" class="pass-img" data-index="73">
+      <img src="assets/cocoon_storyboard_074.jpg" alt="Emerging From The Cocoon storyboard — slide 74" class="pass-img" data-index="74">
+      <img src="assets/cocoon_storyboard_075.jpg" alt="Emerging From The Cocoon storyboard — slide 75" class="pass-img" data-index="75">
+      <img src="assets/cocoon_storyboard_076.jpg" alt="Emerging From The Cocoon storyboard — slide 76" class="pass-img" data-index="76">
+      <img src="assets/cocoon_storyboard_077.jpg" alt="Emerging From The Cocoon storyboard — slide 77" class="pass-img" data-index="77">
+      <img src="assets/cocoon_storyboard_078.jpg" alt="Emerging From The Cocoon storyboard — slide 78" class="pass-img" data-index="78">
+      <img src="assets/cocoon_storyboard_079.jpg" alt="Emerging From The Cocoon storyboard — slide 79" class="pass-img" data-index="79">
+      <img src="assets/cocoon_storyboard_080.jpg" alt="Emerging From The Cocoon storyboard — slide 80" class="pass-img" data-index="80">
+      <img src="assets/cocoon_storyboard_081.jpg" alt="Emerging From The Cocoon storyboard — slide 81" class="pass-img" data-index="81">
+      <img src="assets/cocoon_storyboard_082.jpg" alt="Emerging From The Cocoon storyboard — slide 82" class="pass-img" data-index="82">
+      <img src="assets/cocoon_storyboard_083.jpg" alt="Emerging From The Cocoon storyboard — slide 83" class="pass-img" data-index="83">
+      <img src="assets/cocoon_storyboard_084.jpg" alt="Emerging From The Cocoon storyboard — slide 84" class="pass-img" data-index="84">
+      <img src="assets/cocoon_storyboard_085.jpg" alt="Emerging From The Cocoon storyboard — slide 85" class="pass-img" data-index="85">
+      <img src="assets/cocoon_storyboard_086.jpg" alt="Emerging From The Cocoon storyboard — slide 86" class="pass-img" data-index="86">
+      <img src="assets/cocoon_storyboard_087.jpg" alt="Emerging From The Cocoon storyboard — slide 87" class="pass-img" data-index="87">
+      <img src="assets/cocoon_storyboard_088.jpg" alt="Emerging From The Cocoon storyboard — slide 88" class="pass-img" data-index="88">
+      <img src="assets/cocoon_storyboard_089.jpg" alt="Emerging From The Cocoon storyboard — slide 89" class="pass-img" data-index="89">
+      <img src="assets/cocoon_storyboard_090.jpg" alt="Emerging From The Cocoon storyboard — slide 90" class="pass-img" data-index="90">
+      <img src="assets/cocoon_storyboard_091.jpg" alt="Emerging From The Cocoon storyboard — slide 91" class="pass-img" data-index="91">
+      <img src="assets/cocoon_storyboard_092.jpg" alt="Emerging From The Cocoon storyboard — slide 92" class="pass-img" data-index="92">
+      <img src="assets/cocoon_storyboard_093.jpg" alt="Emerging From The Cocoon storyboard — slide 93" class="pass-img" data-index="93">
+      <img src="assets/cocoon_storyboard_094.jpg" alt="Emerging From The Cocoon storyboard — slide 94" class="pass-img" data-index="94">
+      <img src="assets/cocoon_storyboard_095.jpg" alt="Emerging From The Cocoon storyboard — slide 95" class="pass-img" data-index="95">
+      <img src="assets/cocoon_storyboard_096.jpg" alt="Emerging From The Cocoon storyboard — slide 96" class="pass-img" data-index="96">
+      <img src="assets/cocoon_storyboard_097.jpg" alt="Emerging From The Cocoon storyboard — slide 97" class="pass-img" data-index="97">
+      <img src="assets/cocoon_storyboard_098.jpg" alt="Emerging From The Cocoon storyboard — slide 98" class="pass-img" data-index="98">
+      <img src="assets/cocoon_storyboard_099.jpg" alt="Emerging From The Cocoon storyboard — slide 99" class="pass-img" data-index="99">
+      <img src="assets/cocoon_storyboard_100.jpg" alt="Emerging From The Cocoon storyboard — slide 100" class="pass-img" data-index="100">
+      <img src="assets/cocoon_storyboard_101.jpg" alt="Emerging From The Cocoon storyboard — slide 101" class="pass-img" data-index="101">
+      <img src="assets/cocoon_storyboard_102.jpg" alt="Emerging From The Cocoon storyboard — slide 102" class="pass-img" data-index="102">
+      <img src="assets/cocoon_storyboard_103.jpg" alt="Emerging From The Cocoon storyboard — slide 103" class="pass-img" data-index="103">
+      <img src="assets/cocoon_storyboard_104.jpg" alt="Emerging From The Cocoon storyboard — slide 104" class="pass-img" data-index="104">
+      <img src="assets/cocoon_storyboard_105.jpg" alt="Emerging From The Cocoon storyboard — slide 105" class="pass-img" data-index="105">
+      <img src="assets/cocoon_storyboard_106.jpg" alt="Emerging From The Cocoon storyboard — slide 106" class="pass-img" data-index="106">
+      <img src="assets/cocoon_storyboard_107.jpg" alt="Emerging From The Cocoon storyboard — slide 107" class="pass-img" data-index="107">
+      <img src="assets/cocoon_storyboard_108.jpg" alt="Emerging From The Cocoon storyboard — slide 108" class="pass-img" data-index="108">
+      <img src="assets/cocoon_storyboard_109.jpg" alt="Emerging From The Cocoon storyboard — slide 109" class="pass-img" data-index="109">
+      <img src="assets/cocoon_storyboard_110.jpg" alt="Emerging From The Cocoon storyboard — slide 110" class="pass-img" data-index="110">
+      <img src="assets/cocoon_storyboard_111.jpg" alt="Emerging From The Cocoon storyboard — slide 111" class="pass-img" data-index="111">
+      <img src="assets/cocoon_storyboard_112.jpg" alt="Emerging From The Cocoon storyboard — slide 112" class="pass-img" data-index="112">
+      <img src="assets/cocoon_storyboard_113.jpg" alt="Emerging From The Cocoon storyboard — slide 113" class="pass-img" data-index="113">
+      <img src="assets/cocoon_storyboard_114.jpg" alt="Emerging From The Cocoon storyboard — slide 114" class="pass-img" data-index="114">
+      <img src="assets/cocoon_storyboard_115.jpg" alt="Emerging From The Cocoon storyboard — slide 115" class="pass-img" data-index="115">
+      <img src="assets/cocoon_storyboard_116.jpg" alt="Emerging From The Cocoon storyboard — slide 116" class="pass-img" data-index="116">
+      <img src="assets/cocoon_storyboard_117.jpg" alt="Emerging From The Cocoon storyboard — slide 117" class="pass-img" data-index="117">
+      <img src="assets/cocoon_storyboard_118.jpg" alt="Emerging From The Cocoon storyboard — slide 118" class="pass-img" data-index="118">
+      <img src="assets/cocoon_storyboard_119.jpg" alt="Emerging From The Cocoon storyboard — slide 119" class="pass-img" data-index="119">
+      <img src="assets/cocoon_storyboard_120.jpg" alt="Emerging From The Cocoon storyboard — slide 120" class="pass-img" data-index="120">
+      <img src="assets/cocoon_storyboard_121.jpg" alt="Emerging From The Cocoon storyboard — slide 121" class="pass-img" data-index="121">
+      <img src="assets/cocoon_storyboard_122.jpg" alt="Emerging From The Cocoon storyboard — slide 122" class="pass-img" data-index="122">
+      <img src="assets/cocoon_storyboard_123.jpg" alt="Emerging From The Cocoon storyboard — slide 123" class="pass-img" data-index="123">
+      <img src="assets/cocoon_storyboard_124.jpg" alt="Emerging From The Cocoon storyboard — slide 124" class="pass-img" data-index="124">
+      <img src="assets/cocoon_storyboard_125.jpg" alt="Emerging From The Cocoon storyboard — slide 125" class="pass-img" data-index="125">
+      <img src="assets/cocoon_storyboard_126.jpg" alt="Emerging From The Cocoon storyboard — slide 126" class="pass-img" data-index="126">
+      <img src="assets/cocoon_storyboard_127.jpg" alt="Emerging From The Cocoon storyboard — slide 127" class="pass-img" data-index="127">
+      <img src="assets/cocoon_storyboard_128.jpg" alt="Emerging From The Cocoon storyboard — slide 128" class="pass-img" data-index="128">
+      <img src="assets/cocoon_storyboard_129.jpg" alt="Emerging From The Cocoon storyboard — slide 129" class="pass-img" data-index="129">
+      <img src="assets/cocoon_storyboard_130.jpg" alt="Emerging From The Cocoon storyboard — slide 130" class="pass-img" data-index="130">
+      <img src="assets/cocoon_storyboard_131.jpg" alt="Emerging From The Cocoon storyboard — slide 131" class="pass-img" data-index="131">
+      <img src="assets/cocoon_storyboard_132.jpg" alt="Emerging From The Cocoon storyboard — slide 132" class="pass-img" data-index="132">
+      <img src="assets/cocoon_storyboard_133.jpg" alt="Emerging From The Cocoon storyboard — slide 133" class="pass-img" data-index="133">
+      <img src="assets/cocoon_storyboard_134.jpg" alt="Emerging From The Cocoon storyboard — slide 134" class="pass-img" data-index="134">
+      <img src="assets/cocoon_storyboard_135.jpg" alt="Emerging From The Cocoon storyboard — slide 135" class="pass-img" data-index="135">
+      <img src="assets/cocoon_storyboard_136.jpg" alt="Emerging From The Cocoon storyboard — slide 136" class="pass-img" data-index="136">
+      <img src="assets/cocoon_storyboard_137.jpg" alt="Emerging From The Cocoon storyboard — slide 137" class="pass-img" data-index="137">
+      <img src="assets/cocoon_storyboard_138.jpg" alt="Emerging From The Cocoon storyboard — slide 138" class="pass-img" data-index="138">
+      <img src="assets/cocoon_storyboard_139.jpg" alt="Emerging From The Cocoon storyboard — slide 139" class="pass-img" data-index="139">
+      <img src="assets/cocoon_storyboard_140.jpg" alt="Emerging From The Cocoon storyboard — slide 140" class="pass-img" data-index="140">
+      <img src="assets/cocoon_storyboard_141.jpg" alt="Emerging From The Cocoon storyboard — slide 141" class="pass-img" data-index="141">
+      <img src="assets/cocoon_storyboard_142.jpg" alt="Emerging From The Cocoon storyboard — slide 142" class="pass-img" data-index="142">
+      <img src="assets/cocoon_storyboard_143.jpg" alt="Emerging From The Cocoon storyboard — slide 143" class="pass-img" data-index="143">
+      <img src="assets/cocoon_storyboard_144.jpg" alt="Emerging From The Cocoon storyboard — slide 144" class="pass-img" data-index="144">
+      <img src="assets/cocoon_storyboard_145.jpg" alt="Emerging From The Cocoon storyboard — slide 145" class="pass-img" data-index="145">
+      <img src="assets/cocoon_storyboard_146.jpg" alt="Emerging From The Cocoon storyboard — slide 146" class="pass-img" data-index="146">
+      <img src="assets/cocoon_storyboard_147.jpg" alt="Emerging From The Cocoon storyboard — slide 147" class="pass-img" data-index="147">
+      <img src="assets/cocoon_storyboard_148.jpg" alt="Emerging From The Cocoon storyboard — slide 148" class="pass-img" data-index="148">
+      <img src="assets/cocoon_storyboard_149.jpg" alt="Emerging From The Cocoon storyboard — slide 149" class="pass-img" data-index="149">
+      <img src="assets/cocoon_storyboard_150.jpg" alt="Emerging From The Cocoon storyboard — slide 150" class="pass-img" data-index="150">
+      <img src="assets/cocoon_storyboard_151.jpg" alt="Emerging From The Cocoon storyboard — slide 151" class="pass-img" data-index="151">
+      <img src="assets/cocoon_storyboard_152.jpg" alt="Emerging From The Cocoon storyboard — slide 152" class="pass-img" data-index="152">
+      <img src="assets/cocoon_storyboard_153.jpg" alt="Emerging From The Cocoon storyboard — slide 153" class="pass-img" data-index="153">
+      <img src="assets/cocoon_storyboard_154.jpg" alt="Emerging From The Cocoon storyboard — slide 154" class="pass-img" data-index="154">
+      <img src="assets/cocoon_storyboard_155.jpg" alt="Emerging From The Cocoon storyboard — slide 155" class="pass-img" data-index="155">
+      <img src="assets/cocoon_storyboard_156.jpg" alt="Emerging From The Cocoon storyboard — slide 156" class="pass-img" data-index="156">
+      <img src="assets/cocoon_storyboard_157.jpg" alt="Emerging From The Cocoon storyboard — slide 157" class="pass-img" data-index="157">
+      <img src="assets/cocoon_storyboard_158.jpg" alt="Emerging From The Cocoon storyboard — slide 158" class="pass-img" data-index="158">
+      <img src="assets/cocoon_storyboard_159.jpg" alt="Emerging From The Cocoon storyboard — slide 159" class="pass-img" data-index="159">
+      <img src="assets/cocoon_storyboard_160.jpg" alt="Emerging From The Cocoon storyboard — slide 160" class="pass-img" data-index="160">
+      <img src="assets/cocoon_storyboard_161.jpg" alt="Emerging From The Cocoon storyboard — slide 161" class="pass-img" data-index="161">
+      <img src="assets/cocoon_storyboard_162.jpg" alt="Emerging From The Cocoon storyboard — slide 162" class="pass-img" data-index="162">
+      <img src="assets/cocoon_storyboard_163.jpg" alt="Emerging From The Cocoon storyboard — slide 163" class="pass-img" data-index="163">
+      <img src="assets/cocoon_storyboard_164.jpg" alt="Emerging From The Cocoon storyboard — slide 164" class="pass-img" data-index="164">
+      <img src="assets/cocoon_storyboard_165.jpg" alt="Emerging From The Cocoon storyboard — slide 165" class="pass-img" data-index="165">
+      <img src="assets/cocoon_storyboard_166.jpg" alt="Emerging From The Cocoon storyboard — slide 166" class="pass-img" data-index="166">
+      <img src="assets/cocoon_storyboard_167.jpg" alt="Emerging From The Cocoon storyboard — slide 167" class="pass-img" data-index="167">
+      <img src="assets/cocoon_storyboard_168.jpg" alt="Emerging From The Cocoon storyboard — slide 168" class="pass-img" data-index="168">
+      <img src="assets/cocoon_storyboard_169.jpg" alt="Emerging From The Cocoon storyboard — slide 169" class="pass-img" data-index="169">
+      <img src="assets/cocoon_storyboard_170.jpg" alt="Emerging From The Cocoon storyboard — slide 170" class="pass-img" data-index="170">
+      <img src="assets/cocoon_storyboard_171.jpg" alt="Emerging From The Cocoon storyboard — slide 171" class="pass-img" data-index="171">
+      <img src="assets/cocoon_storyboard_172.jpg" alt="Emerging From The Cocoon storyboard — slide 172" class="pass-img" data-index="172">
+      <img src="assets/cocoon_storyboard_173.jpg" alt="Emerging From The Cocoon storyboard — slide 173" class="pass-img" data-index="173">
+      <img src="assets/cocoon_storyboard_174.jpg" alt="Emerging From The Cocoon storyboard — slide 174" class="pass-img" data-index="174">
+      <img src="assets/cocoon_storyboard_175.jpg" alt="Emerging From The Cocoon storyboard — slide 175" class="pass-img" data-index="175">
+      <img src="assets/cocoon_storyboard_176.jpg" alt="Emerging From The Cocoon storyboard — slide 176" class="pass-img" data-index="176">
+      <img src="assets/cocoon_storyboard_177.jpg" alt="Emerging From The Cocoon storyboard — slide 177" class="pass-img" data-index="177">
+      <img src="assets/cocoon_storyboard_178.jpg" alt="Emerging From The Cocoon storyboard — slide 178" class="pass-img" data-index="178">
+      <img src="assets/cocoon_storyboard_179.jpg" alt="Emerging From The Cocoon storyboard — slide 179" class="pass-img" data-index="179">
+      <img src="assets/cocoon_storyboard_180.jpg" alt="Emerging From The Cocoon storyboard — slide 180" class="pass-img" data-index="180">
+      <img src="assets/cocoon_storyboard_181.jpg" alt="Emerging From The Cocoon storyboard — slide 181" class="pass-img" data-index="181">
+      <img src="assets/cocoon_storyboard_182.jpg" alt="Emerging From The Cocoon storyboard — slide 182" class="pass-img" data-index="182">
+      <img src="assets/cocoon_storyboard_183.jpg" alt="Emerging From The Cocoon storyboard — slide 183" class="pass-img" data-index="183">
+      <img src="assets/cocoon_storyboard_184.jpg" alt="Emerging From The Cocoon storyboard — slide 184" class="pass-img" data-index="184">
+      <img src="assets/cocoon_storyboard_185.jpg" alt="Emerging From The Cocoon storyboard — slide 185" class="pass-img" data-index="185">
+      <img src="assets/cocoon_storyboard_186.jpg" alt="Emerging From The Cocoon storyboard — slide 186" class="pass-img" data-index="186">
+      <img src="assets/cocoon_storyboard_187.jpg" alt="Emerging From The Cocoon storyboard — slide 187" class="pass-img" data-index="187">
+      <img src="assets/cocoon_storyboard_188.jpg" alt="Emerging From The Cocoon storyboard — slide 188" class="pass-img" data-index="188">
+      <img src="assets/cocoon_storyboard_189.jpg" alt="Emerging From The Cocoon storyboard — slide 189" class="pass-img" data-index="189">
+      <img src="assets/cocoon_storyboard_190.jpg" alt="Emerging From The Cocoon storyboard — slide 190" class="pass-img" data-index="190">
+      <img src="assets/cocoon_storyboard_191.jpg" alt="Emerging From The Cocoon storyboard — slide 191" class="pass-img" data-index="191">
+      <img src="assets/cocoon_storyboard_192.jpg" alt="Emerging From The Cocoon storyboard — slide 192" class="pass-img" data-index="192">
+      <img src="assets/cocoon_storyboard_193.jpg" alt="Emerging From The Cocoon storyboard — slide 193" class="pass-img" data-index="193">
+      <img src="assets/cocoon_storyboard_194.jpg" alt="Emerging From The Cocoon storyboard — slide 194" class="pass-img" data-index="194">
+      <img src="assets/cocoon_storyboard_195.jpg" alt="Emerging From The Cocoon storyboard — slide 195" class="pass-img" data-index="195">
+      <img src="assets/cocoon_storyboard_196.jpg" alt="Emerging From The Cocoon storyboard — slide 196" class="pass-img" data-index="196">
+      <img src="assets/cocoon_storyboard_197.jpg" alt="Emerging From The Cocoon storyboard — slide 197" class="pass-img" data-index="197">
+      <img src="assets/cocoon_storyboard_198.jpg" alt="Emerging From The Cocoon storyboard — slide 198" class="pass-img" data-index="198">
+      <img src="assets/cocoon_storyboard_199.jpg" alt="Emerging From The Cocoon storyboard — slide 199" class="pass-img" data-index="199">
+      <img src="assets/cocoon_storyboard_200.jpg" alt="Emerging From The Cocoon storyboard — slide 200" class="pass-img" data-index="200">
+      <img src="assets/cocoon_storyboard_201.jpg" alt="Emerging From The Cocoon storyboard — slide 201" class="pass-img" data-index="201">
+      <img src="assets/cocoon_storyboard_202.jpg" alt="Emerging From The Cocoon storyboard — slide 202" class="pass-img" data-index="202">
+      <img src="assets/cocoon_storyboard_203.jpg" alt="Emerging From The Cocoon storyboard — slide 203" class="pass-img" data-index="203">
+      <img src="assets/cocoon_storyboard_204.jpg" alt="Emerging From The Cocoon storyboard — slide 204" class="pass-img" data-index="204">
+      <img src="assets/cocoon_storyboard_205.jpg" alt="Emerging From The Cocoon storyboard — slide 205" class="pass-img" data-index="205">
+      <img src="assets/cocoon_storyboard_206.jpg" alt="Emerging From The Cocoon storyboard — slide 206" class="pass-img" data-index="206">
+      <img src="assets/cocoon_storyboard_207.jpg" alt="Emerging From The Cocoon storyboard — slide 207" class="pass-img" data-index="207">
+      <img src="assets/cocoon_storyboard_208.jpg" alt="Emerging From The Cocoon storyboard — slide 208" class="pass-img" data-index="208">
+      <img src="assets/cocoon_storyboard_209.jpg" alt="Emerging From The Cocoon storyboard — slide 209" class="pass-img" data-index="209">
+      <img src="assets/cocoon_storyboard_210.jpg" alt="Emerging From The Cocoon storyboard — slide 210" class="pass-img" data-index="210">
+      <img src="assets/cocoon_storyboard_211.jpg" alt="Emerging From The Cocoon storyboard — slide 211" class="pass-img" data-index="211">
+      <img src="assets/cocoon_storyboard_212.jpg" alt="Emerging From The Cocoon storyboard — slide 212" class="pass-img" data-index="212">
+      <img src="assets/cocoon_storyboard_213.jpg" alt="Emerging From The Cocoon storyboard — slide 213" class="pass-img" data-index="213">
+      <img src="assets/cocoon_storyboard_214.jpg" alt="Emerging From The Cocoon storyboard — slide 214" class="pass-img" data-index="214">
+      <img src="assets/cocoon_storyboard_215.jpg" alt="Emerging From The Cocoon storyboard — slide 215" class="pass-img" data-index="215">
+      <img src="assets/cocoon_storyboard_216.jpg" alt="Emerging From The Cocoon storyboard — slide 216" class="pass-img" data-index="216">
+      <img src="assets/cocoon_storyboard_217.jpg" alt="Emerging From The Cocoon storyboard — slide 217" class="pass-img" data-index="217">
+      <img src="assets/cocoon_storyboard_218.jpg" alt="Emerging From The Cocoon storyboard — slide 218" class="pass-img" data-index="218">
+      <img src="assets/cocoon_storyboard_219.jpg" alt="Emerging From The Cocoon storyboard — slide 219" class="pass-img" data-index="219">
+      <img src="assets/cocoon_storyboard_220.jpg" alt="Emerging From The Cocoon storyboard — slide 220" class="pass-img" data-index="220">
+      <img src="assets/cocoon_storyboard_221.jpg" alt="Emerging From The Cocoon storyboard — slide 221" class="pass-img" data-index="221">
+      <img src="assets/cocoon_storyboard_222.jpg" alt="Emerging From The Cocoon storyboard — slide 222" class="pass-img" data-index="222">
+      <img src="assets/cocoon_storyboard_223.jpg" alt="Emerging From The Cocoon storyboard — slide 223" class="pass-img" data-index="223">
+      <img src="assets/cocoon_storyboard_224.jpg" alt="Emerging From The Cocoon storyboard — slide 224" class="pass-img" data-index="224">
+      <img src="assets/cocoon_storyboard_225.jpg" alt="Emerging From The Cocoon storyboard — slide 225" class="pass-img" data-index="225">
+      <img src="assets/cocoon_storyboard_226.jpg" alt="Emerging From The Cocoon storyboard — slide 226" class="pass-img" data-index="226">
+      <img src="assets/cocoon_storyboard_227.jpg" alt="Emerging From The Cocoon storyboard — slide 227" class="pass-img" data-index="227">
+      <img src="assets/cocoon_storyboard_228.jpg" alt="Emerging From The Cocoon storyboard — slide 228" class="pass-img" data-index="228">
+      <img src="assets/cocoon_storyboard_229.jpg" alt="Emerging From The Cocoon storyboard — slide 229" class="pass-img" data-index="229">
+      <img src="assets/cocoon_storyboard_230.jpg" alt="Emerging From The Cocoon storyboard — slide 230" class="pass-img" data-index="230">
+      <img src="assets/cocoon_storyboard_231.jpg" alt="Emerging From The Cocoon storyboard — slide 231" class="pass-img" data-index="231">
+      <img src="assets/cocoon_storyboard_232.jpg" alt="Emerging From The Cocoon storyboard — slide 232" class="pass-img" data-index="232">
+      <img src="assets/cocoon_storyboard_233.jpg" alt="Emerging From The Cocoon storyboard — slide 233" class="pass-img" data-index="233">
+      <img src="assets/cocoon_storyboard_234.jpg" alt="Emerging From The Cocoon storyboard — slide 234" class="pass-img" data-index="234">
+      <img src="assets/cocoon_storyboard_235.jpg" alt="Emerging From The Cocoon storyboard — slide 235" class="pass-img" data-index="235">
+      <img src="assets/cocoon_storyboard_236.jpg" alt="Emerging From The Cocoon storyboard — slide 236" class="pass-img" data-index="236">
+      <img src="assets/cocoon_storyboard_237.jpg" alt="Emerging From The Cocoon storyboard — slide 237" class="pass-img" data-index="237">
+      <img src="assets/cocoon_storyboard_238.jpg" alt="Emerging From The Cocoon storyboard — slide 238" class="pass-img" data-index="238">
+      <img src="assets/cocoon_storyboard_239.jpg" alt="Emerging From The Cocoon storyboard — slide 239" class="pass-img" data-index="239">
+      <img src="assets/cocoon_storyboard_240.jpg" alt="Emerging From The Cocoon storyboard — slide 240" class="pass-img" data-index="240">
+      <img src="assets/cocoon_storyboard_241.jpg" alt="Emerging From The Cocoon storyboard — slide 241" class="pass-img" data-index="241">
+      <img src="assets/cocoon_storyboard_242.jpg" alt="Emerging From The Cocoon storyboard — slide 242" class="pass-img" data-index="242">
+      <img src="assets/cocoon_storyboard_243.jpg" alt="Emerging From The Cocoon storyboard — slide 243" class="pass-img" data-index="243">
+      <img src="assets/cocoon_storyboard_244.jpg" alt="Emerging From The Cocoon storyboard — slide 244" class="pass-img" data-index="244">
+      <img src="assets/cocoon_storyboard_245.jpg" alt="Emerging From The Cocoon storyboard — slide 245" class="pass-img" data-index="245">
+      <img src="assets/cocoon_storyboard_246.jpg" alt="Emerging From The Cocoon storyboard — slide 246" class="pass-img" data-index="246">
+      <img src="assets/cocoon_storyboard_247.jpg" alt="Emerging From The Cocoon storyboard — slide 247" class="pass-img" data-index="247">
+      <img src="assets/cocoon_storyboard_248.jpg" alt="Emerging From The Cocoon storyboard — slide 248" class="pass-img" data-index="248">
+      <img src="assets/cocoon_storyboard_249.jpg" alt="Emerging From The Cocoon storyboard — slide 249" class="pass-img" data-index="249">
+      <img src="assets/cocoon_storyboard_250.jpg" alt="Emerging From The Cocoon storyboard — slide 250" class="pass-img" data-index="250">
+      <img src="assets/cocoon_storyboard_251.jpg" alt="Emerging From The Cocoon storyboard — slide 251" class="pass-img" data-index="251">
+      <img src="assets/cocoon_storyboard_252.jpg" alt="Emerging From The Cocoon storyboard — slide 252" class="pass-img" data-index="252">
+      <img src="assets/cocoon_storyboard_253.jpg" alt="Emerging From The Cocoon storyboard — slide 253" class="pass-img" data-index="253">
+      <img src="assets/cocoon_storyboard_254.jpg" alt="Emerging From The Cocoon storyboard — slide 254" class="pass-img" data-index="254">
+      <img src="assets/cocoon_storyboard_255.jpg" alt="Emerging From The Cocoon storyboard — slide 255" class="pass-img" data-index="255">
+      <img src="assets/cocoon_storyboard_256.jpg" alt="Emerging From The Cocoon storyboard — slide 256" class="pass-img" data-index="256">
+      <img src="assets/cocoon_storyboard_257.jpg" alt="Emerging From The Cocoon storyboard — slide 257" class="pass-img" data-index="257">
+      <img src="assets/cocoon_storyboard_258.jpg" alt="Emerging From The Cocoon storyboard — slide 258" class="pass-img" data-index="258">
+      <img src="assets/cocoon_storyboard_259.jpg" alt="Emerging From The Cocoon storyboard — slide 259" class="pass-img" data-index="259">
+      <img src="assets/cocoon_storyboard_260.jpg" alt="Emerging From The Cocoon storyboard — slide 260" class="pass-img" data-index="260">
+      <img src="assets/cocoon_storyboard_261.jpg" alt="Emerging From The Cocoon storyboard — slide 261" class="pass-img" data-index="261">
+      <img src="assets/cocoon_storyboard_262.jpg" alt="Emerging From The Cocoon storyboard — slide 262" class="pass-img" data-index="262">
+      <img src="assets/cocoon_storyboard_263.jpg" alt="Emerging From The Cocoon storyboard — slide 263" class="pass-img" data-index="263">
+      <img src="assets/cocoon_storyboard_264.jpg" alt="Emerging From The Cocoon storyboard — slide 264" class="pass-img" data-index="264">
+      <img src="assets/cocoon_storyboard_265.jpg" alt="Emerging From The Cocoon storyboard — slide 265" class="pass-img" data-index="265">
+      <img src="assets/cocoon_storyboard_266.jpg" alt="Emerging From The Cocoon storyboard — slide 266" class="pass-img" data-index="266">
+      <img src="assets/cocoon_storyboard_267.jpg" alt="Emerging From The Cocoon storyboard — slide 267" class="pass-img" data-index="267">
+      <img src="assets/cocoon_storyboard_268.jpg" alt="Emerging From The Cocoon storyboard — slide 268" class="pass-img" data-index="268">
+      <img src="assets/cocoon_storyboard_269.jpg" alt="Emerging From The Cocoon storyboard — slide 269" class="pass-img" data-index="269">
+      <img src="assets/cocoon_storyboard_270.jpg" alt="Emerging From The Cocoon storyboard — slide 270" class="pass-img" data-index="270">
+      <img src="assets/cocoon_storyboard_271.jpg" alt="Emerging From The Cocoon storyboard — slide 271" class="pass-img" data-index="271">
+      <img src="assets/cocoon_storyboard_272.jpg" alt="Emerging From The Cocoon storyboard — slide 272" class="pass-img" data-index="272">
+      <img src="assets/cocoon_storyboard_273.jpg" alt="Emerging From The Cocoon storyboard — slide 273" class="pass-img" data-index="273">
+      <img src="assets/cocoon_storyboard_274.jpg" alt="Emerging From The Cocoon storyboard — slide 274" class="pass-img" data-index="274">
+      <img src="assets/cocoon_storyboard_275.jpg" alt="Emerging From The Cocoon storyboard — slide 275" class="pass-img" data-index="275">
+      <img src="assets/cocoon_storyboard_276.jpg" alt="Emerging From The Cocoon storyboard — slide 276" class="pass-img" data-index="276">
+      <img src="assets/cocoon_storyboard_277.jpg" alt="Emerging From The Cocoon storyboard — slide 277" class="pass-img" data-index="277">
+      <img src="assets/cocoon_storyboard_278.jpg" alt="Emerging From The Cocoon storyboard — slide 278" class="pass-img" data-index="278">
+      <img src="assets/cocoon_storyboard_279.jpg" alt="Emerging From The Cocoon storyboard — slide 279" class="pass-img" data-index="279">
+      <img src="assets/cocoon_storyboard_280.jpg" alt="Emerging From The Cocoon storyboard — slide 280" class="pass-img" data-index="280">
+      <img src="assets/cocoon_storyboard_281.jpg" alt="Emerging From The Cocoon storyboard — slide 281" class="pass-img" data-index="281">
+      <img src="assets/cocoon_storyboard_282.jpg" alt="Emerging From The Cocoon storyboard — slide 282" class="pass-img" data-index="282">
+      <img src="assets/cocoon_storyboard_283.jpg" alt="Emerging From The Cocoon storyboard — slide 283" class="pass-img" data-index="283">
+      <img src="assets/cocoon_storyboard_284.jpg" alt="Emerging From The Cocoon storyboard — slide 284" class="pass-img" data-index="284">
+      <img src="assets/cocoon_storyboard_285.jpg" alt="Emerging From The Cocoon storyboard — slide 285" class="pass-img" data-index="285">
+      <img src="assets/cocoon_storyboard_286.jpg" alt="Emerging From The Cocoon storyboard — slide 286" class="pass-img" data-index="286">
+      <img src="assets/cocoon_storyboard_287.jpg" alt="Emerging From The Cocoon storyboard — slide 287" class="pass-img" data-index="287">
+      <img src="assets/cocoon_storyboard_288.jpg" alt="Emerging From The Cocoon storyboard — slide 288" class="pass-img" data-index="288">
+      <img src="assets/cocoon_storyboard_289.jpg" alt="Emerging From The Cocoon storyboard — slide 289" class="pass-img" data-index="289">
+      <img src="assets/cocoon_storyboard_290.jpg" alt="Emerging From The Cocoon storyboard — slide 290" class="pass-img" data-index="290">
+      <img src="assets/cocoon_storyboard_291.jpg" alt="Emerging From The Cocoon storyboard — slide 291" class="pass-img" data-index="291">
+      <img src="assets/cocoon_storyboard_292.jpg" alt="Emerging From The Cocoon storyboard — slide 292" class="pass-img" data-index="292">
+      <img src="assets/cocoon_storyboard_293.jpg" alt="Emerging From The Cocoon storyboard — slide 293" class="pass-img" data-index="293">
+      <img src="assets/cocoon_storyboard_294.jpg" alt="Emerging From The Cocoon storyboard — slide 294" class="pass-img" data-index="294">
+      <img src="assets/cocoon_storyboard_295.jpg" alt="Emerging From The Cocoon storyboard — slide 295" class="pass-img" data-index="295">
+      <img src="assets/cocoon_storyboard_296.jpg" alt="Emerging From The Cocoon storyboard — slide 296" class="pass-img" data-index="296">
+      <img src="assets/cocoon_storyboard_297.jpg" alt="Emerging From The Cocoon storyboard — slide 297" class="pass-img" data-index="297">
+      <img src="assets/cocoon_storyboard_298.jpg" alt="Emerging From The Cocoon storyboard — slide 298" class="pass-img" data-index="298">
+      <img src="assets/cocoon_storyboard_299.jpg" alt="Emerging From The Cocoon storyboard — slide 299" class="pass-img" data-index="299">
+      <img src="assets/cocoon_storyboard_300.jpg" alt="Emerging From The Cocoon storyboard — slide 300" class="pass-img" data-index="300">
+      <img src="assets/cocoon_storyboard_301.jpg" alt="Emerging From The Cocoon storyboard — slide 301" class="pass-img" data-index="301">
+      <img src="assets/cocoon_storyboard_302.jpg" alt="Emerging From The Cocoon storyboard — slide 302" class="pass-img" data-index="302">
+      <img src="assets/cocoon_storyboard_303.jpg" alt="Emerging From The Cocoon storyboard — slide 303" class="pass-img" data-index="303">
+      <img src="assets/cocoon_storyboard_304.jpg" alt="Emerging From The Cocoon storyboard — slide 304" class="pass-img" data-index="304">
+      <img src="assets/cocoon_storyboard_305.jpg" alt="Emerging From The Cocoon storyboard — slide 305" class="pass-img" data-index="305">
+      <img src="assets/cocoon_storyboard_306.jpg" alt="Emerging From The Cocoon storyboard — slide 306" class="pass-img" data-index="306">
+      <img src="assets/cocoon_storyboard_307.jpg" alt="Emerging From The Cocoon storyboard — slide 307" class="pass-img" data-index="307">
+      <img src="assets/cocoon_storyboard_308.jpg" alt="Emerging From The Cocoon storyboard — slide 308" class="pass-img" data-index="308">
+      <img src="assets/cocoon_storyboard_309.jpg" alt="Emerging From The Cocoon storyboard — slide 309" class="pass-img" data-index="309">
+      <img src="assets/cocoon_storyboard_310.jpg" alt="Emerging From The Cocoon storyboard — slide 310" class="pass-img" data-index="310">
+      <img src="assets/cocoon_storyboard_311.jpg" alt="Emerging From The Cocoon storyboard — slide 311" class="pass-img" data-index="311">
+      <img src="assets/cocoon_storyboard_312.jpg" alt="Emerging From The Cocoon storyboard — slide 312" class="pass-img" data-index="312">      <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="pass-nav next" id="passNext" aria-label="Next slide">
+        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="pass-progress" id="passProgress">
+      <div class="pass-progress-fill" id="passProgressFill"></div>
     </div>
   </section>
 
@@ -223,6 +593,104 @@
 <footer>
   © 2026 Perry Chu
 </footer>
+
+<script>
+  // Slide viewer — click arrows, drag the progress bar, swipe, hover-scrub (desktop
+  // only), arrow keys, or click the left/right half of the image to move through
+  // the deck. All slides load eagerly so switching is instant with no delay.
+  (function(){
+    var stage = document.getElementById('passViewer');
+    if(!stage) return;
+    var slides = Array.prototype.slice.call(stage.querySelectorAll('.pass-img'));
+    var count = document.getElementById('passCount');
+    var prevBtn = document.getElementById('passPrev');
+    var nextBtn = document.getElementById('passNext');
+    var progress = document.getElementById('passProgress');
+    var progressFill = document.getElementById('passProgressFill');
+    var total = slides.length;
+    var current = 0;
+
+    function show(i){
+      var newIdx = (i + total) % total;
+      if(newIdx === current){ return; }
+      var prevIdx = current;
+      current = newIdx;
+
+      // Instant cut — no crossfade, no delay.
+      slides[prevIdx].classList.remove('is-active');
+      slides[current].classList.add('is-active');
+
+      count.textContent = String(current+1).padStart(3,'0') + ' / ' + String(total).padStart(3,'0');
+      progressFill.style.width = (((current+1) / total) * 100) + '%';
+    }
+
+    function next(){ show(current + 1); }
+    function prev(){ show(current - 1); }
+
+    if(nextBtn) nextBtn.addEventListener('click', next);
+    if(prevBtn) prevBtn.addEventListener('click', prev);
+
+    document.addEventListener('keydown', function(e){
+      var rect = stage.getBoundingClientRect();
+      if(rect.bottom < 0 || rect.top > window.innerHeight) return; // only when viewer is on screen
+      if(e.key === 'ArrowRight'){ next(); }
+      else if(e.key === 'ArrowLeft'){ prev(); }
+    });
+
+    var touchStartX = null;
+    var justSwiped = false;
+    stage.addEventListener('touchstart', function(e){ touchStartX = e.changedTouches[0].clientX; }, { passive:true });
+    stage.addEventListener('touchend', function(e){
+      if(touchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      justSwiped = false;
+      if(dx > 40){ prev(); justSwiped = true; }
+      else if(dx < -40){ next(); justSwiped = true; }
+      touchStartX = null;
+    }, { passive:true });
+    stage.addEventListener('touchcancel', function(){ touchStartX = null; }, { passive:true });
+
+    // Click anywhere on the image — left half goes back, right half goes forward.
+    stage.addEventListener('click', function(e){
+      if(justSwiped){ justSwiped = false; return; }
+      if(e.target.closest && e.target.closest('.pass-nav')) return;
+      var rect = stage.getBoundingClientRect();
+      var relX = (e.clientX - rect.left) / rect.width;
+      if(relX < 0.5){ prev(); } else { next(); }
+    });
+
+    // Hover follow — only on real hover-capable pointers (mice/trackpads), never
+    // touch, since touchscreens fire a synthetic mousemove after every tap/swipe
+    // that would otherwise jump to an arbitrary slide and override the real gesture.
+    var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if(supportsHover){
+      stage.addEventListener('mousemove', function(e){
+        var rect = stage.getBoundingClientRect();
+        var relX = (e.clientX - rect.left) / rect.width;
+        relX = Math.min(Math.max(relX, 0), 0.999);
+        var idx = Math.floor(relX * total);
+        if(idx !== current) show(idx);
+      });
+    }
+
+    // Click/drag the progress bar to jump to any point in the deck.
+    function seekFromEvent(e){
+      var rect = progress.getBoundingClientRect();
+      var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      var relX = (clientX - rect.left) / rect.width;
+      relX = Math.min(Math.max(relX, 0), 0.999);
+      show(Math.floor(relX * total));
+    }
+    if(supportsHover){
+      var isSeeking = false;
+      progress.addEventListener('mousedown', function(e){ isSeeking = true; seekFromEvent(e); });
+      window.addEventListener('mousemove', function(e){ if(isSeeking) seekFromEvent(e); });
+      window.addEventListener('mouseup', function(){ isSeeking = false; });
+    }
+    progress.addEventListener('touchstart', function(e){ seekFromEvent(e); }, { passive:true });
+    progress.addEventListener('touchmove', function(e){ seekFromEvent(e); }, { passive:true });
+  })();
+</script>
 
 </body>
 </html>
