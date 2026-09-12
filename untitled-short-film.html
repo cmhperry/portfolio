@@ -228,6 +228,26 @@
     border-radius:2px;
     transition:width 0.3s ease;
   }
+  .pass-hint{
+    margin:0.9rem var(--gap) 0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-align:center;
+  }
+  .pass-hint-key{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:1.4em;
+    padding:0.1em 0.35em;
+    margin:0 0.15em;
+    border:1px solid var(--line-strong);
+    border-radius:3px;
+    color:var(--ink);
+  }
 
   footer{
     border-top:1px solid var(--line);
@@ -433,6 +453,7 @@
     <div class="pass-progress" id="passProgress">
       <div class="pass-progress-fill" id="passProgressFill"></div>
     </div>
+    <p class="pass-hint">Tip: use the <span class="pass-hint-key">←</span> <span class="pass-hint-key">→</span> arrow keys to browse</p>
   </section>
 
 </main>
@@ -508,22 +529,9 @@
       if(relX < 0.5){ prev(); } else { next(); }
     });
 
-    // Hover follow — moving the mouse across the viewer scrubs through the deck live.
-    // Only enabled on devices with a real hover-capable pointer (mice/trackpads).
-    // Touchscreens fire a synthetic mousemove right after every tap/swipe, and with
-    // 150 slides mapped across the viewer's width, that synthetic event would jump
-    // to an arbitrary slide and override the actual tap or swipe — so it's skipped
-    // entirely on touch devices.
+    // Hover-scrub disabled — navigation is via arrows, keyboard, click zones,
+    // swipe, and the progress bar only.
     var supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if(supportsHover){
-      stage.addEventListener('mousemove', function(e){
-        var rect = stage.getBoundingClientRect();
-        var relX = (e.clientX - rect.left) / rect.width;
-        relX = Math.min(Math.max(relX, 0), 0.999);
-        var idx = Math.floor(relX * total);
-        if(idx !== current) show(idx);
-      });
-    }
 
     // Click/drag the progress bar to jump to any point in the deck.
     function seekFromEvent(e){
