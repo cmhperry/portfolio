@@ -229,13 +229,19 @@
     transition:width 0.3s ease;
   }
   .pass-hint{
-    margin:0.9rem var(--gap) 0;
+    display:inline-flex;
+    align-items:center;
+    gap:0.4em;
+    margin:0 0 1rem;
+    padding:0.5em 0.9em;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    border-radius:5px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.68rem;
+    font-size:0.72rem;
     letter-spacing:0.06em;
     text-transform:uppercase;
-    color:var(--ink-soft);
-    text-align:center;
+    color:var(--ink);
   }
   .pass-hint-key{
     display:inline-flex;
@@ -243,10 +249,11 @@
     justify-content:center;
     min-width:1.4em;
     padding:0.1em 0.35em;
-    margin:0 0.15em;
-    border:1px solid var(--line-strong);
+    margin:0 0.1em;
+    border:1px solid var(--accent);
     border-radius:3px;
-    color:var(--ink);
+    color:var(--accent);
+    background:var(--bg);
   }
 
   footer{
@@ -291,6 +298,7 @@
   </section>
 
   <section class="pass-section">
+    <p class="pass-hint">Tip: use the <span class="pass-hint-key">←</span> <span class="pass-hint-key">→</span> arrow keys to browse</p>
     <div class="pass-viewer" id="passViewer">
       <span class="pass-count" id="passCount">001 / 150</span>
       <img src="assets/untitled_storyboard_001.png" alt="Untitled storyboard — slide 1" class="pass-img is-active" data-index="1">
@@ -453,7 +461,6 @@
     <div class="pass-progress" id="passProgress">
       <div class="pass-progress-fill" id="passProgressFill"></div>
     </div>
-    <p class="pass-hint">Tip: use the <span class="pass-hint-key">←</span> <span class="pass-hint-key">→</span> arrow keys to browse</p>
   </section>
 
 </main>

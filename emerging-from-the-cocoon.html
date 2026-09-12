@@ -115,7 +115,7 @@
   }
 
   .project-hero{
-    padding:clamp(3rem, 7vw, 5rem) 0 clamp(2rem, 5vw, 3rem);
+    padding:clamp(1.5rem, 4vw, 2.5rem) 0 clamp(1rem, 2.5vw, 1.5rem);
   }
   .eyebrow{
     font-family:'IBM Plex Mono', monospace;
@@ -147,9 +147,9 @@
 
   /* ---------- SLIDE VIEWER ---------- */
   .pass-section{
-    padding-bottom:clamp(3rem, 7vw, 5rem);
-    width:150%;
-    max-width:min(1500px, 96vw);
+    padding-bottom:clamp(1.5rem, 3vw, 2.5rem);
+    width:108%;
+    max-width:min(1080px, 68vw);
     position:relative;
     left:50%;
     transform:translateX(-50%);
@@ -215,7 +215,7 @@
   .pass-progress{
     position:relative;
     height:4px;
-    margin:1rem var(--gap) 0;
+    margin:0.6rem var(--gap) 0;
     background:var(--line-strong);
     border-radius:2px;
     cursor:pointer;
@@ -229,13 +229,19 @@
     transition:width 0.3s ease;
   }
   .pass-hint{
-    margin:0.9rem var(--gap) 0;
+    display:inline-flex;
+    align-items:center;
+    gap:0.4em;
+    margin:0 0 0.5rem;
+    padding:0.4em 0.8em;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+    border-radius:5px;
     font-family:'IBM Plex Mono', monospace;
-    font-size:0.68rem;
+    font-size:0.72rem;
     letter-spacing:0.06em;
     text-transform:uppercase;
-    color:var(--ink-soft);
-    text-align:center;
+    color:var(--ink);
   }
   .pass-hint-key{
     display:inline-flex;
@@ -243,10 +249,11 @@
     justify-content:center;
     min-width:1.4em;
     padding:0.1em 0.35em;
-    margin:0 0.15em;
-    border:1px solid var(--line-strong);
+    margin:0 0.1em;
+    border:1px solid var(--accent);
     border-radius:3px;
-    color:var(--ink);
+    color:var(--accent);
+    background:var(--bg);
   }
 
   footer{
@@ -291,6 +298,7 @@
   </section>
 
   <section class="pass-section">
+    <p class="pass-hint">Tip: use the <span class="pass-hint-key">←</span> <span class="pass-hint-key">→</span> arrow keys to browse</p>
     <div class="pass-viewer" id="passViewer">
       <span class="pass-count" id="passCount">001 / 312</span>
       <img src="assets/cocoon_storyboard_001.jpg" alt="Emerging From The Cocoon storyboard — slide 1" class="pass-img is-active" data-index="1">
@@ -614,7 +622,6 @@
     <div class="pass-progress" id="passProgress">
       <div class="pass-progress-fill" id="passProgressFill"></div>
     </div>
-    <p class="pass-hint">Tip: use the <span class="pass-hint-key">←</span> <span class="pass-hint-key">→</span> arrow keys to browse</p>
   </section>
 
 </main>
