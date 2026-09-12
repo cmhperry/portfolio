@@ -182,6 +182,35 @@
     .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
   }
 
+  .gallery-section{
+    padding-bottom:clamp(3rem, 7vw, 5rem);
+    width:150%;
+    max-width:min(1500px, 96vw);
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+  }
+  @media (max-width:900px){
+    .gallery-section{ width:100%; max-width:100%; left:0; transform:none; }
+  }
+  .gallery-section-inner{
+    display:flex;
+    flex-direction:column;
+    gap:1.6rem;
+  }
+  .gallery-frame{
+    border:1px solid var(--line-strong);
+    background:var(--bg-alt);
+    padding:12px;
+    border-radius:6px;
+  }
+  .gallery-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:4px;
+  }
+
   footer{
     border-top:1px solid var(--line);
     padding:1.6rem var(--gap);
@@ -241,6 +270,17 @@
         title="Last Cloudia"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen="true"></iframe>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-section-inner">
+      <div class="gallery-frame">
+        <img src="assets/AW_EmpireShip_001.jpg" alt="Last Cloudia — Empire ship render">
+      </div>
+      <div class="gallery-frame">
+        <img src="assets/AW_MonShip_001.png" alt="Last Cloudia — Mon ship render">
+      </div>
     </div>
   </section>
 
