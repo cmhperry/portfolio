@@ -182,6 +182,28 @@
     .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
   }
 
+  /* Google Drive's preview player isn't truly responsive internally like YouTube's —
+     below a certain width its own layout can break. Fix: always render it at a fixed
+     640x360 size, then visually scale the whole iframe down via CSS transform so it
+     still fits the actual container, while Drive itself never sees a narrow viewport. */
+  .drive-scale-wrap{
+    position:absolute;
+    top:12px; left:12px; right:12px; bottom:12px;
+    overflow:hidden;
+    border-radius:4px;
+  }
+  @media (max-width:600px){
+    .drive-scale-wrap{ top:8px; left:8px; right:8px; bottom:8px; }
+  }
+  .drive-scale-iframe{
+    position:absolute;
+    top:0; left:0;
+    width:640px;
+    height:360px;
+    border:0;
+    transform-origin:0 0;
+  }
+
   /* ---------- PASS VIEWER ---------- */
   .pass-section{
     padding-bottom:clamp(3rem, 7vw, 5rem);
@@ -360,10 +382,12 @@
         allowfullscreen="true"></iframe>
     </div>
     <div class="deck-embed">
-      <iframe src="https://drive.google.com/file/d/1jaycWyybXoSoiDnQDW6I02voz-L-XhLd/preview"
-        title="Sonic Racing: Crossworlds — Making Of"
-        allow="autoplay"
-        allowfullscreen="true"></iframe>
+      <div class="drive-scale-wrap">
+        <iframe class="drive-scale-iframe" src="https://drive.google.com/file/d/1jaycWyybXoSoiDnQDW6I02voz-L-XhLd/preview"
+          title="Sonic Racing: Crossworlds — Making Of"
+          allow="autoplay"
+          allowfullscreen="true"></iframe>
+      </div>
     </div>
   </section>
 
@@ -404,6 +428,24 @@
 </footer>
 
 <script>
+  // Fix Google Drive's preview embed on narrow/mobile viewports — see CSS comment
+  // above .drive-scale-wrap for why this is needed.
+  (function(){
+    var wraps = Array.prototype.slice.call(document.querySelectorAll('.drive-scale-wrap'));
+    if(!wraps.length) return;
+    function fit(){
+      wraps.forEach(function(wrap){
+        var iframe = wrap.querySelector('.drive-scale-iframe');
+        if(!iframe) return;
+        var scale = wrap.clientWidth / 640;
+        iframe.style.transform = 'scale(' + scale + ')';
+      });
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', fit);
+  })();
+
   // Pass/frame viewer — click arrows, dots, swipe, or hover to cycle through images.
   (function(){
     var stage = document.getElementById('passViewer');
