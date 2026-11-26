@@ -3,7 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Phantom Blade Zero | Perry Chu</title>
+<title>Phantom Blade Zero — Perry Chu</title>
+<meta name="description" content="Unreal Engine game cinematics for Phantom Blade Zero: PBR weapon, cloth, and skin texturing, and asset creation.">
+<link rel="canonical" href="https://www.perrychu.com/phantom-blade-zero.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Phantom Blade Zero — Perry Chu">
+<meta property="og:description" content="Unreal Engine game cinematics for Phantom Blade Zero: PBR weapon, cloth, and skin texturing, and asset creation.">
+<meta property="og:url" content="https://www.perrychu.com/phantom-blade-zero.html">
+<meta property="og:image" content="https://www.perrychu.com/assets/phantom_blade_zero_thumb.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="709">
+<meta property="og:image:alt" content="Phantom Blade Zero key art">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Phantom Blade Zero — Perry Chu">
+<meta name="twitter:description" content="Unreal Engine game cinematics for Phantom Blade Zero: PBR weapon, cloth, and skin texturing, and asset creation.">
+<meta name="twitter:image" content="https://www.perrychu.com/assets/phantom_blade_zero_thumb.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -110,8 +127,66 @@
     transition:width 0.25s ease;
   }
   .nav-links a:hover::after{ width:100%; }
+
+  .nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    padding:0;
+    color:var(--ink-soft);
+    background:transparent;
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    cursor:pointer;
+    flex:0 0 auto;
+  }
+  .nav-toggle:hover,
+  .nav-toggle[aria-expanded="true"]{ color:var(--accent); border-color:var(--accent); }
+  .nav-toggle:focus-visible,
+  .nav-links a:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+  .nav-toggle svg{ width:15px; height:15px; display:block; }
+  .nav-toggle .icon-close{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-menu{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-close{ display:block; }
+  @media (max-width:960px){
+    .nav-right{ gap:0.8rem; }
+    .nav-links{ gap:0.7rem 1rem; flex-wrap:wrap; justify-content:flex-end; }
+  }
   @media (max-width:480px){
-    .nav-links{ display:none; }
+    /* backdrop-filter on the header would clip a menu that hangs out of it */
+    header{
+      background:#0E0F12;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+    }
+    nav{ position:static; }
+    .nav-toggle{ display:flex; }
+    .nav-links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      flex-wrap:nowrap;
+      gap:0;
+      margin:0;
+      padding:0.35rem 0 0.85rem;
+      background:#0E0F12;
+      border-bottom:1px solid var(--line);
+      z-index:60;
+    }
+    .nav-links.is-open{ display:flex; }
+    .nav-links a{
+      display:block;
+      padding:0.85rem var(--gap);
+      color:var(--ink);
+    }
+    .nav-links a::after{ display:none; }
   }
 
   .project-hero{
@@ -297,6 +372,34 @@
     .deck-embed iframe{ top:8px; left:8px; right:8px; bottom:8px; width:calc(100% - 16px); height:calc(100% - 16px); }
   }
 
+
+  .project-credits{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem 1.35rem;
+    margin:0.15rem 0 1.05rem;
+    padding:0;
+  }
+  .project-credits div{
+    display:flex;
+    gap:0.5rem;
+    align-items:baseline;
+    margin:0;
+  }
+  .project-credits dt{
+    margin:0;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  .project-credits dd{
+    margin:0;
+    font-size:0.9rem;
+    color:var(--ink);
+  }
+
   footer{
     border-top:1px solid var(--line);
     padding:1.6rem var(--gap);
@@ -306,7 +409,14 @@
     text-transform:uppercase;
     letter-spacing:0.06em;
     text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1.4rem;
   }
+  footer .footer-cv{ color:var(--accent); }
+  footer .footer-cv:hover{ color:var(--ink); }
 
 </style>
 </head>
@@ -319,12 +429,17 @@
       <a href="index.html#top" class="home-btn" aria-label="Home">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
       </a>
-      <ul class="nav-links">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon-menu" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <ul class="nav-links" id="site-nav">
         <li><a href="index.html#work">CG</a></li>
         <li><a href="index.html#storyboard">Storyboard</a></li>
         <li><a href="index.html#career">Career</a></li>
         <li><a href="index.html#about">About</a></li>
         <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="assets/Perry_Chu_CV.pdf" target="_blank" rel="noopener">Download CV</a></li>
       </ul>
     </div>
   </nav>
@@ -335,6 +450,19 @@
   <section class="project-hero">
     <p class="eyebrow">Unreal Game Development</p>
     <h1>Phantom Blade Zero</h1>
+    <!--
+      Project credits — same markup on every CG page (and Beyond).
+      Confirmed facts only. To fill a blank later, copy a row:
+        <div><dt>Year</dt><dd>YYYY</dd></div>
+        <div><dt>Award</dt><dd>Award name</dd></div>
+        <div><dt>Tools</dt><dd>Tool, tool</dd></div>
+      Still to confirm for this project: year, award.
+    -->
+    <dl class="project-credits">
+      <div><dt>Studio</dt><dd>SIMAGE Animation and Media Ltd (Hong Kong)</dd></div>
+      <div><dt>Tools</dt><dd>Unreal Engine</dd></div>
+    </dl>
+
     <p>PBR weapon, cloth &amp; skin texturing, asset creation.</p>
   </section>
 
@@ -351,13 +479,13 @@
     <div class="pass-viewer" id="passViewer">
       <span class="pass-label" id="passLabel">Final Render</span>
       <span class="pass-count" id="passCount">01 / 07</span>
-      <img src="assets/pb_won_001.jpg" alt="Final render" class="pass-img is-active" data-label="Final Render">
-      <img src="assets/pb_won_002.jpg" alt="Wireframe pass" class="pass-img" data-label="Wireframe">
-      <img src="assets/pb_won_003.jpg" alt="UV checker pass" class="pass-img" data-label="UV Checker">
-      <img src="assets/pb_won_004.jpg" alt="Ambient occlusion pass" class="pass-img" data-label="Ambient Occlusion">
-      <img src="assets/pb_won_005.jpg" alt="Roughness pass" class="pass-img" data-label="Roughness">
-      <img src="assets/pb_won_006.jpg" alt="Metalness pass" class="pass-img" data-label="Metalness">
-      <img src="assets/pb_won_007.jpg" alt="Normal map pass" class="pass-img" data-label="Normal Map">
+      <img loading="lazy" decoding="async" src="assets/pb_won_001.jpg" alt="Final render" class="pass-img is-active" data-label="Final Render">
+      <img loading="lazy" decoding="async" src="assets/pb_won_002.jpg" alt="Wireframe pass" class="pass-img" data-label="Wireframe">
+      <img loading="lazy" decoding="async" src="assets/pb_won_003.jpg" alt="UV checker pass" class="pass-img" data-label="UV Checker">
+      <img loading="lazy" decoding="async" src="assets/pb_won_004.jpg" alt="Ambient occlusion pass" class="pass-img" data-label="Ambient Occlusion">
+      <img loading="lazy" decoding="async" src="assets/pb_won_005.jpg" alt="Roughness pass" class="pass-img" data-label="Roughness">
+      <img loading="lazy" decoding="async" src="assets/pb_won_006.jpg" alt="Metalness pass" class="pass-img" data-label="Metalness">
+      <img loading="lazy" decoding="async" src="assets/pb_won_007.jpg" alt="Normal map pass" class="pass-img" data-label="Normal Map">
       <button type="button" class="pass-nav prev" id="passPrev" aria-label="Previous pass">
         <svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -371,49 +499,49 @@
   <section class="gallery-section">
     <div class="gallery-section-inner">
       <div class="gallery-frame">
-        <img src="assets/pb_whiteman_blueman_001.jpg" alt="Phantom Blade Zero character render — clay and textured comparison">
+        <img loading="lazy" decoding="async" src="assets/pb_whiteman_blueman_001.jpg" alt="Phantom Blade Zero character render — clay and textured comparison">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_whiteman_blueman_props_001.jpg" alt="Phantom Blade Zero character props — sword and dagger set">
+        <img loading="lazy" decoding="async" src="assets/pb_whiteman_blueman_props_001.jpg" alt="Phantom Blade Zero character props — sword and dagger set">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_whiteman_blueman_props_002.jpg" alt="Phantom Blade Zero character props — polearm and scythe">
+        <img loading="lazy" decoding="async" src="assets/pb_whiteman_blueman_props_002.jpg" alt="Phantom Blade Zero character props — polearm and scythe">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_blademan_arrowman_001.jpg" alt="Phantom Blade Zero character render — blade and arrow characters">
+        <img loading="lazy" decoding="async" src="assets/pb_blademan_arrowman_001.jpg" alt="Phantom Blade Zero character render — blade and arrow characters">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_blademan_arrowman_props_001.jpg" alt="Phantom Blade Zero character props — masks">
+        <img loading="lazy" decoding="async" src="assets/pb_blademan_arrowman_props_001.jpg" alt="Phantom Blade Zero character props — masks">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_blademan_arrowman_props_002.jpg" alt="Phantom Blade Zero character props — flintlock pistol and dagger">
+        <img loading="lazy" decoding="async" src="assets/pb_blademan_arrowman_props_002.jpg" alt="Phantom Blade Zero character props — flintlock pistol and dagger">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_kwai_props_001.jpg" alt="Phantom Blade Zero character props — sword, dagger, and cape variants">
+        <img loading="lazy" decoding="async" src="assets/pb_kwai_props_001.jpg" alt="Phantom Blade Zero character props — sword, dagger, and cape variants">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_hookman_001.jpg" alt="Phantom Blade Zero character render — hooded character with scythe">
+        <img loading="lazy" decoding="async" src="assets/pb_hookman_001.jpg" alt="Phantom Blade Zero character render — hooded character with scythe">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_bosskwun_001.jpg" alt="Phantom Blade Zero character render — armored boss character">
+        <img loading="lazy" decoding="async" src="assets/pb_bosskwun_001.jpg" alt="Phantom Blade Zero character render — armored boss character">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_enemy_001.jpg" alt="Phantom Blade Zero character render — samurai and mage enemy characters">
+        <img loading="lazy" decoding="async" src="assets/pb_enemy_001.jpg" alt="Phantom Blade Zero character render — samurai and mage enemy characters">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_enemy_props_001.jpg" alt="Phantom Blade Zero character props — oni masks">
+        <img loading="lazy" decoding="async" src="assets/pb_enemy_props_001.jpg" alt="Phantom Blade Zero character props — oni masks">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_horsecart_001.jpg" alt="Phantom Blade Zero prop render — horse-drawn cart">
+        <img loading="lazy" decoding="async" src="assets/pb_horsecart_001.jpg" alt="Phantom Blade Zero prop render — horse-drawn cart">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_horsecart_002.jpg" alt="Phantom Blade Zero prop render — horse harness detail">
+        <img loading="lazy" decoding="async" src="assets/pb_horsecart_002.jpg" alt="Phantom Blade Zero prop render — horse harness detail">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_statueA_001.jpg" alt="Phantom Blade Zero statue render — detail">
+        <img loading="lazy" decoding="async" src="assets/pb_statueA_001.jpg" alt="Phantom Blade Zero statue render — detail">
       </div>
       <div class="gallery-frame">
-        <img src="assets/pb_statueA_002.jpg" alt="Phantom Blade Zero statue render — full">
+        <img loading="lazy" decoding="async" src="assets/pb_statueA_002.jpg" alt="Phantom Blade Zero statue render — full">
       </div>
     </div>
   </section>
@@ -421,7 +549,8 @@
 </main>
 
 <footer>
-  © 2026 Perry Chu
+  <a class="footer-cv" href="assets/Perry_Chu_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+  <span>© 2026 Perry Chu</span>
 </footer>
 
 <script>
@@ -495,5 +624,6 @@
   })();
 </script>
 
+<script src="assets/nav.js"></script>
 </body>
 </html>
