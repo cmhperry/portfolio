@@ -3,7 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perry Chu — CG Artist</title>
+<title>Perry Chu — CG &amp; Storyboard Artist</title>
+<meta name="description" content="Hong Kong–based 3D artist. Modeling, texturing, lighting, and storyboards for feature animation and game cinematics, including Another World and Sonic Racing: CrossWorlds.">
+<link rel="canonical" href="https://www.perrychu.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Perry Chu — CG &amp; Storyboard Artist">
+<meta property="og:description" content="Hong Kong–based 3D artist. Modeling, texturing, lighting, and storyboards for feature animation and game cinematics, including Another World and Sonic Racing: CrossWorlds.">
+<meta property="og:url" content="https://www.perrychu.com/">
+<meta property="og:image" content="https://www.perrychu.com/assets/sonic_crossworlds_hero.jpg">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="Sonic Racing: CrossWorlds key art">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Perry Chu — CG &amp; Storyboard Artist">
+<meta name="twitter:description" content="Hong Kong–based 3D artist. Modeling, texturing, lighting, and storyboards for feature animation and game cinematics, including Another World and Sonic Racing: CrossWorlds.">
+<meta name="twitter:image" content="https://www.perrychu.com/assets/sonic_crossworlds_hero.jpg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -441,7 +458,7 @@
   .about-portrait{ position:sticky; top:100px; }
   .about-content{ padding-top:0.4rem; }
   .about-text p{
-    font-size:1.05rem;
+    font-size:0.98rem;
     color:var(--ink-soft);
     margin:0 0 1.1rem;
     max-width:56ch;
@@ -537,6 +554,24 @@
     .nav-links{ gap:1.1rem; }
   }
 
+
+  .cv-link{
+    display:inline-flex;
+    align-items:center;
+    margin:0.2rem 0 0;
+    padding:0.7rem 1rem;
+    border:1px solid var(--line-strong);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ink);
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .cv-link:hover{ color:var(--accent); border-color:var(--accent); }
+  .footer-bottom a.footer-cv{ color:var(--accent); }
+  .footer-bottom a.footer-cv:hover{ color:var(--ink); }
+
   /* ---------- CONTACT FORM ---------- */
   .contact-grid{
     display:grid;
@@ -612,8 +647,66 @@
     .contact-grid{ grid-template-columns:1fr; }
     .form-row{ grid-template-columns:1fr; }
   }
+
+  .nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    padding:0;
+    color:var(--ink-soft);
+    background:transparent;
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    cursor:pointer;
+    flex:0 0 auto;
+  }
+  .nav-toggle:hover,
+  .nav-toggle[aria-expanded="true"]{ color:var(--accent); border-color:var(--accent); }
+  .nav-toggle:focus-visible,
+  .nav-links a:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+  .nav-toggle svg{ width:15px; height:15px; display:block; }
+  .nav-toggle .icon-close{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-menu{ display:none; }
+  .nav-toggle[aria-expanded="true"] .icon-close{ display:block; }
+  @media (max-width:960px){
+    .nav-right{ gap:0.8rem; }
+    .nav-links{ gap:0.7rem 1rem; flex-wrap:wrap; justify-content:flex-end; }
+  }
   @media (max-width:480px){
-    .nav-links{ display:none; }
+    /* backdrop-filter on the header would clip a menu that hangs out of it */
+    header{
+      background:#0E0F12;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+    }
+    nav{ position:static; }
+    .nav-toggle{ display:flex; }
+    .nav-links{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      flex-direction:column;
+      flex-wrap:nowrap;
+      gap:0;
+      margin:0;
+      padding:0.35rem 0 0.85rem;
+      background:#0E0F12;
+      border-bottom:1px solid var(--line);
+      z-index:60;
+    }
+    .nav-links.is-open{ display:flex; }
+    .nav-links a{
+      display:block;
+      padding:0.85rem var(--gap);
+      color:var(--ink);
+    }
+    .nav-links a::after{ display:none; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -631,12 +724,17 @@
       <a href="index.html#top" class="home-btn" aria-label="Home">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"/></svg>
       </a>
-      <ul class="nav-links">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon-menu" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <ul class="nav-links" id="site-nav">
         <li><a href="#work">CG</a></li>
         <li><a href="#storyboard">Storyboard</a></li>
         <li><a href="#career">Career</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="assets/Perry_Chu_CV.pdf" target="_blank" rel="noopener">Download CV</a></li>
       </ul>
     </div>
   </nav>
@@ -660,16 +758,16 @@
       <span class="hud-label bl" id="heroSlideSub">影之刃零 Phantom Blade Zero — Game Cinematics</span>
       <span class="hud-label br" id="heroSlideCount">01 / 02</span>
       <a href="phantom-blade-zero.html" class="hero-slide-link">
-        <img src="assets/phantom_blade_zero_hero.jpg" alt="Phantom Blade Zero key art" class="hero-img is-active" data-sub="影之刃零 Phantom Blade Zero — Game Cinematics" draggable="false">
+        <img decoding="async" src="assets/phantom_blade_zero_hero.jpg" alt="Phantom Blade Zero key art" class="hero-img is-active" data-sub="影之刃零 Phantom Blade Zero — Game Cinematics" draggable="false">
       </a>
       <a href="another-world.html" class="hero-slide-link">
-        <img src="assets/another_world_hero.jpg" alt="Another World key art" class="hero-img" data-sub="世外 Another World — Animated Feature" draggable="false">
+        <img decoding="async" src="assets/another_world_hero.jpg" alt="Another World key art" class="hero-img" data-sub="世外 Another World — Animated Feature" draggable="false">
       </a>
       <a href="sonic-racing-crossworlds.html" class="hero-slide-link">
-        <img src="assets/sonic_crossworlds_hero.png" alt="Sonic Racing: Crossworlds key art" class="hero-img" data-sub="索尼克賽車 交叉世界 Sonic Crossworlds — Animated Short" draggable="false">
+        <img decoding="async" src="assets/sonic_crossworlds_hero.jpg" alt="Sonic Racing: Crossworlds key art" class="hero-img" data-sub="索尼克賽車 交叉世界 Sonic Crossworlds — Animated Short" draggable="false">
       </a>
       <a href="sherlock-holmes-and-the-great-escape.html" class="hero-slide-link">
-        <img src="assets/sherlock_film_hero.jpg" alt="Sherlock Holmes And The Great Escape key art" class="hero-img" data-sub="大偵探福爾摩斯：逃獄大追捕 Sherlock Holmes and the Great Escape — Animated Feature" draggable="false">
+        <img decoding="async" src="assets/sherlock_film_hero.jpg" alt="Sherlock Holmes And The Great Escape key art" class="hero-img" data-sub="大偵探福爾摩斯：逃獄大追捕 Sherlock Holmes and the Great Escape — Animated Feature" draggable="false">
       </a>
       <div class="hero-overlay"></div>
       <button type="button" class="hero-nav prev" id="heroPrev" aria-label="Previous slide">
@@ -716,7 +814,7 @@
         <a href="phantom-blade-zero.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/phantom_blade_zero_thumb.jpg" alt="Phantom Blade Zero character still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/phantom_blade_zero_thumb.jpg" alt="Phantom Blade Zero character still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -731,7 +829,7 @@
         <a href="sonic-racing-crossworlds.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/sonic_crossworlds_thumb.png" alt="Sonic Racing: Crossworlds key art" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/sonic_crossworlds_thumb.jpg" alt="Sonic Racing: Crossworlds key art" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -747,7 +845,7 @@
         <a href="another-world.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/another_world_thumb.jpg" alt="Another World (世外) poster" class="project-img" style="object-position:top;">
+            <img loading="lazy" decoding="async" src="assets/another_world_thumb.jpg" alt="Another World (世外) poster" class="project-img" style="object-position:top;">
           </div>
         </a>
         <div class="project-info">
@@ -763,7 +861,7 @@
         <a href="sherlock-holmes-and-the-great-escape.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/sherlock_holmes_film_thumb.jpg" alt="Sherlock Holmes And The Great Escape key art" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/sherlock_holmes_film_thumb.jpg" alt="Sherlock Holmes And The Great Escape key art" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -778,7 +876,7 @@
         <a href="sonic-x-shadows.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/sonic_shadow_thumb.jpg" alt="Sonic x Shadows: Generation Dark Beginnings still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/sonic_shadow_thumb.jpg" alt="Sonic x Shadows: Generation Dark Beginnings still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -793,7 +891,7 @@
         <a href="last-cloudia.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/last_cloudia_thumb.jpg" alt="Last Cloudia key art" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/last_cloudia_thumb.jpg" alt="Last Cloudia key art" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -808,7 +906,7 @@
         <a href="tezutopia.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/tezutopia_thumb.png" alt="Tezutopia teaser trailer still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/tezutopia_thumb.jpg" alt="Tezutopia teaser trailer still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -823,7 +921,7 @@
         <a href="wind-and-cloud.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/windandcloud_thumb.png" alt="Wind and Cloud teaser trailer still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/windandcloud_thumb.jpg" alt="Wind and Cloud teaser trailer still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -848,7 +946,7 @@
         <a href="sherlock-holmes-storyboard.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/sherlock_holmes_film_storyboard_thumb.png" alt="Sherlock Holmes And The Great Escape storyboard still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/sherlock_holmes_film_storyboard_thumb.png" alt="Sherlock Holmes And The Great Escape storyboard still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -863,7 +961,7 @@
         <a href="untitled-short-film.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/YP_untitled_thumb.png" alt="Untitled Short Film storyboard still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/YP_untitled_thumb.png" alt="Untitled Short Film storyboard still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -878,7 +976,7 @@
         <a href="emerging-from-the-cocoon.html" class="project-frame-link">
           <div class="hud-frame project-frame has-image">
             <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-            <img src="assets/TheCocoon_thumb.jpg" alt="Emerging From The Cocoon storyboard still" class="project-img">
+            <img loading="lazy" decoding="async" src="assets/TheCocoon_thumb.jpg" alt="Emerging From The Cocoon storyboard still" class="project-img">
           </div>
         </a>
         <div class="project-info">
@@ -915,7 +1013,7 @@
 
       <div class="timeline-row">
         <div class="timeline-meta">
-          <span class="mono">Prior</span>
+          <span class="mono">Jul 2017 — Jul 2025</span>
           <span class="mono ink-soft">Hong Kong SAR</span>
         </div>
         <div class="timeline-body">
@@ -987,13 +1085,18 @@
       <div class="about-portrait">
         <div class="hud-frame portrait-frame">
           <div class="tick-tl"></div><div class="tick-tr"></div><div class="tick-bl"></div><div class="tick-br"></div>
-          <img src="assets/profile.jpg" alt="Portrait of Perry Chu" class="portrait-img">
+          <img loading="lazy" decoding="async" src="assets/profile.jpg" alt="Portrait of Perry Chu" class="portrait-img">
         </div>
       </div>
       <div class="about-content">
         <div class="about-text">
-          <p>Building worlds through CG and planning scenes with storyboards for film and games, focused on the craft of moving pictures and digital art — from PBR and NPR texturing to full animation production, taking projects from concept through final delivery.</p>
+          <p>I'm a Hong Kong–based 3D artist. I hold a Bachelor's in Animation and Visual Effects from Hong Kong Metropolitan University (2013–2017) and worked as a CG and storyboard artist at SIMAGE Animation in Hong Kong from 2017 to 2025, with credits on feature animation and game cinematics — including Another World (世外), winner of the 2025 Golden Horse Award for Best Animated Feature, and Sonic Racing: CrossWorlds, a 53rd Annie Awards nominee.</p>
+          <p>My day-to-day work is building pipeline-ready 3D assets and environments: modeling, set dressing, texturing, lighting, and rendering, with breakdowns that show how a scene is constructed. I also storyboard and present work clearly for directors and production teams.</p>
+          <p>Since 2025 I've been CG Artist &amp; Director at Woodman Creations, leading projects from pre-production through delivery, including the short film Beyond.</p>
+          <p>I work in English, Cantonese and Mandarin.</p>
         </div>
+        <!-- CV file is not in the repo. Upload assets/Perry_Chu_CV.pdf to activate this link. -->
+        <a class="cv-link" href="assets/Perry_Chu_CV.pdf" target="_blank" rel="noopener">Download CV</a>
         <div class="spec-sheet">
           <div class="spec-row"><span class="label">Role</span><span class="value">CG &amp; Storyboard Artist</span></div>
           <div class="spec-row"><span class="label">Software</span><span class="value">Blender · Maya · Substance Painter · Marmoset Toolbag · Unreal Engine 5 · Adobe Suite</span></div>
@@ -1054,6 +1157,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Perry Chu</span>
+      <a class="footer-cv" href="assets/Perry_Chu_CV.pdf" target="_blank" rel="noopener">Download CV</a>
     </div>
   </footer>
 
@@ -1175,5 +1279,6 @@
   })();
 </script>
 
+<script src="assets/nav.js"></script>
 </body>
 </html>
